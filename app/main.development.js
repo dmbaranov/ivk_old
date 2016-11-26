@@ -44,10 +44,25 @@ app.on('ready', async () => {
   mainWindow = new BrowserWindow({
     show: false,
     width: 1024,
-    height: 728
+    height: 728,
+    webPreferences: {
+      webSecurity: false
+    }
   });
 
   mainWindow.loadURL(`file://${__dirname}/app.html`);
+
+  mainWindow.on('page-title-updated', params => {
+    const urls = params.sender.history;
+    if (urls[urls.length - 1].indexOf('https://oauth.vk.com/blank.html') >= 0) {
+      const url = urls[urls.length - 1];
+      const startIndex = url.indexOf('access_token');
+      const finishIndex = url.indexOf('&', startIndex);
+      const token = url.substring(startIndex + 13, finishIndex);
+
+      mainWindow.loadURL(`file://${__dirname}/app.html#access_token=${token}`);
+    }
+  });
 
   mainWindow.webContents.on('did-finish-load', () => {
     mainWindow.show();
