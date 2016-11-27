@@ -8,12 +8,16 @@ import { CLIENT_ID } from 'app/secret';
 import * as actions from './actions';
 import styles from './style.scss';
 
+const renderer = require('electron').ipcRenderer;
+
 export class App extends Component {
   static PropTypes = {
     children: PropTypes.element.isRequired
   };
 
   render() {
+    renderer.send('Some message');
+
     return (
       <div className={'container-fluid ' + styles.container}>
         <div className={'row ' + styles.row}>
@@ -26,6 +30,7 @@ export class App extends Component {
               </div>
 
           }
+          {this.props.children}
         </div>
       </div>
     )

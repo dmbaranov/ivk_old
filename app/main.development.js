@@ -60,7 +60,7 @@ app.on('ready', async () => {
       const finishIndex = url.indexOf('&', startIndex);
       const token = url.substring(startIndex + 13, finishIndex);
 
-      mainWindow.loadURL(`file://${__dirname}/app.html#access_token=${token}`);
+      mainWindow.loadURL(`file://${__dirname}/app.html#/vk-auth-success#access_token=${token}`);
     }
   });
 
