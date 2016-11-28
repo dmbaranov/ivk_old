@@ -1,8 +1,8 @@
 {
-  "name": "electron-react-boilerplate",
-  "productName": "ElectronReact",
-  "version": "0.10.0",
-  "description": "Electron application boilerplate based on React, React Router, Webpack, React Hot Loader for rapid application development",
+  "name": "IVK",
+  "productName": "Invisible VK",
+  "version": "0.0.0",
+  "description": "This is a client for vk.com that allows you to be offline while using social network",
   "main": "main.js",
   "scripts": {
     "test": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 mocha --retries 2 --compilers js:babel-register --recursive --require ./test/setup.js test/**/*.spec.js",
@@ -68,16 +68,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/chentsulin/electron-react-boilerplate.git"
+    "url": "git+https://github.com/theWaR13/ivk.git"
   },
   "author": {
-    "name": "C. T. Lin",
-    "email": "chentsulin@gmail.com",
-    "url": "https://github.com/chentsulin"
+    "name": "Dmitriy Baranov",
+    "email": "baranov.dmt@gmail.com",
+    "url": "https://github.com/theWaR13"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/chentsulin/electron-react-boilerplate/issues"
+    "url": "https://github.com/theWaR13/ivk/issues"
   },
   "keywords": [
     "electron",
@@ -88,7 +88,7 @@
     "webpack",
     "react-hot"
   ],
-  "homepage": "https://github.com/chentsulin/electron-react-boilerplate#readme",
+  "homepage": "https://github.com/theWaR13/ivk#readme",
   "devDependencies": {
     "asar": "^0.12.3",
     "babel-core": "^6.18.0",
