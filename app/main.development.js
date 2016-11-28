@@ -1,8 +1,10 @@
-import { app, BrowserWindow, Menu, shell } from 'electron';
+import { app, BrowserWindow, Menu, shell, ipcMain } from 'electron';
 
 let menu;
 let template;
 let mainWindow = null;
+
+global.sharedObj = {prop1: null};
 
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support'); // eslint-disable-line
@@ -63,6 +65,12 @@ app.on('ready', async () => {
       mainWindow.loadURL(`file://${__dirname}/app.html#/vk-auth-success#access_token=${token}`);
     }
   });
+
+  ipcMain.on('show-sharedObj', () => {
+    console.log(global.sharedObj);
+    mainWindow.webContents.executeJavaScript('alert("Hello, world!");');
+  });
+
 
   mainWindow.webContents.on('did-finish-load', () => {
     mainWindow.show();
