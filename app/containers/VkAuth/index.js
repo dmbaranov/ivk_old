@@ -3,7 +3,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {hashHistory} from 'react-router';
 
-import * as actions from './actions';
+import * as actions from 'app/containers/App/actions';
 
 export class VkAuth extends Component {
   componentDidMount() {
@@ -14,6 +14,7 @@ export class VkAuth extends Component {
     if (tokenIndex >= 0) {
       access_token = url.substr(tokenIndex);
       this.props.actions.handleLogin(access_token);
+      hashHistory.push('/profile');
     }
     else {
       console.log('Something went wrong');
@@ -23,7 +24,7 @@ export class VkAuth extends Component {
 
   render() {
     return (
-      <div></div>
+      <div>VKAUTH</div>
     )
   }
 }

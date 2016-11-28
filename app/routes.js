@@ -1,14 +1,14 @@
 import React from 'react';
 import {Route, IndexRoute} from 'react-router';
 import App from 'app/containers/App';
-import About from 'app/containers/About';
-import Home from 'app/containers/Home';
+import Profile from 'app/containers/Profile';
+import Dialogs from 'app/containers/Dialogs';
 import VkAuth from 'app/containers/VkAuth';
 
 export default (
   <Route path="/" component={App}>
-    <IndexRoute component={Home} />
-    <Route path="/about" component={About} />
+    <Route path="/profile" component={Profile}/>
+    <Route path="/dialogs" component={Dialogs}/>
     <Route path="/vk-auth-success" component={VkAuth}/>
   </Route>
 

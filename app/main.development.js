@@ -68,7 +68,7 @@ app.on('ready', async () => {
 
   ipcMain.on('show-sharedObj', () => {
     console.log(global.sharedObj);
-    mainWindow.webContents.executeJavaScript('alert("Hello, world!");');
+    mainWindow.webContents.send('info', {message: "Hell yeah, i've received your message! This is my one!"});
   });
 
 
