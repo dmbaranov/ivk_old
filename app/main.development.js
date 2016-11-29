@@ -52,6 +52,8 @@ app.on('ready', async () => {
     }
   });
 
+  mainWindow.openDevTools();
+
   mainWindow.loadURL(`file://${__dirname}/app.html`);
 
   mainWindow.on('page-title-updated', params => {
@@ -60,9 +62,12 @@ app.on('ready', async () => {
       const url = urls[urls.length - 1];
       const startIndex = url.indexOf('access_token');
       const finishIndex = url.indexOf('&', startIndex);
-      const token = url.substring(startIndex + 13, finishIndex);
+      const access_token = url.substring(startIndex + 13, finishIndex);
 
-      mainWindow.loadURL(`file://${__dirname}/app.html#/vk-auth-success#access_token=${token}`);
+      mainWindow.loadURL(`file://${__dirname}/app.html`);
+      mainWindow.webContents.on('did-finish-load', () => {
+        mainWindow.webContents.send('get_access_token', {access_token: access_token});
+      });
     }
   });
 

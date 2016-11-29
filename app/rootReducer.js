@@ -1,10 +1,10 @@
 import {combineReducers} from 'redux';
 import {routerReducer as routing} from 'react-router-redux';
 
-import globalState from 'app/containers/App/reducer';
+import auth from 'app/reducers/auth';
 
 const rootReducer = combineReducers({
-  globalState,
+  auth,
   routing
 });
 
