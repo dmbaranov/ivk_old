@@ -52,8 +52,6 @@ app.on('ready', async () => {
     }
   });
 
-  mainWindow.openDevTools();
-
   mainWindow.loadURL(`file://${__dirname}/app.html`);
 
   mainWindow.on('page-title-updated', params => {
