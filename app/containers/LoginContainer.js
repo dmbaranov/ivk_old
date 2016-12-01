@@ -4,7 +4,12 @@ import {connect} from 'react-redux';
 import Login from 'app/components/Login';
 
 export class LoginContainer extends Component {
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextState !== null;
+  }
+
   render() {
+    console.log('Render LoginContainer');
     return (
       <div>
         <Login {...this.props}/>
@@ -14,8 +19,10 @@ export class LoginContainer extends Component {
 }
 
 function mapStateToProps(state) {
+  const {auth} = state;
+
   return {
-    auth: state.auth
+    auth
   };
 }
 

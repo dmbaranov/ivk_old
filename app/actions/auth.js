@@ -1,6 +1,8 @@
 import * as con from 'app/constants/auth';
 
 export function authUser(access_token) {
+  window.localStorage.setItem('access_token', access_token);
+
   return {
     type: con.AUTH_USER,
     payload: {

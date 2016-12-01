@@ -39,7 +39,7 @@ export class App extends Component {
   };
 
   render() {
-    console.log('Here');
+    console.log('Render AppContainer');
     return (
       <div>
         {this.getMainScreen()}
