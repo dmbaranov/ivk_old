@@ -1,23 +1,32 @@
+export const GET_REQUEST = {
+  method: 'GET',
+  headers: {
+    'Content-Type': 'application/json;charset=utf-8'
+  }
+};
+
+export const POST_REQUEST = {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json;charset=utf-8'
+  }
+};
+
 function request(url, params, resolve, reject) {
   fetch(url, params)
-    .then(response => response.json());
-  // fetch(url, params)
-  //   .then(response => response.json())
-  //   .then(data => {
-  //     console.log(data);
-  //     if (response.ok) {
-  //       resolve(data);
-  //     }
-  //     else {
-  //       reject(data);
-  //     }
-  //   });
+    .then(response => response.json())
+    .then(data => resolve(data.response))
+    .catch(error => {
+      alert('Error has occured while processing a request!');
+      alert(error);
+      reject(error);
+    });
 }
 
 export default {
-  loginRequest(params, client_id) {
+  getProfileInfo(params, access_token) {
     return new Promise((resolve, reject) => {
-      request(`https://oauth.vk.com/authorize?client_id=${client_id}&redirect_uri=blank.html&scope=notify,friends,photos,audio,video,pages,status,notes,messages,wall,ads,offline,docs,groups,notifications,email,market&response_type=token&v=5.60&state=123456`, params, resolve, reject);
+      request(`https://api.vk.com/method/account.getProfileInfo?access_token=${access_token}`, params, resolve, reject);
     });
   }
 }
