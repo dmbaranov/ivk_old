@@ -5,10 +5,6 @@ import {Link} from 'react-router';
 import MenuItem from 'app/components/MenuItem';
 
 export class MenuContainer extends Component {
-  shouldComponentUpdate(nextProps, nextState) {
-    return nextState !== null;
-  }
-
   render() {
     console.log('Render MenuContainer');
     return (

@@ -6,11 +6,7 @@ import {saveUser} from 'app/actions/user';
 import API from 'app/utils/API';
 
 export class ProfileComponent extends Component {
-  shouldComponentUpdate(nextProps, nextState) {
-    return nextState !== null;
-  }
-
-  componentWillMount() {
+  componentDidMount() {
     const {dispatch} = this.props;
     API.getProfileInfo(API.GET_REQUEST, this.props.auth.access_token)
       .then(data => {
@@ -19,9 +15,9 @@ export class ProfileComponent extends Component {
   }
 
   render() {
-    console.log('Render ProfileComponent');
     return (
       <div>
+        <h1>Profile container</h1>
         <Profile userInfo={this.props.user.userInfo}/>
       </div>
     )

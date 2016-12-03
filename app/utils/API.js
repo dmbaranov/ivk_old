@@ -28,5 +28,23 @@ export default {
     return new Promise((resolve, reject) => {
       request(`https://api.vk.com/method/account.getProfileInfo?access_token=${access_token}`, params, resolve, reject);
     });
-  }
+  },
+
+  getDialogsList(params, access_token) {
+    return new Promise((resolve, reject) => {
+      request(`https://api.vk.com/method/messages.getDialogs?access_token=${access_token}`, params, resolve, reject);
+    });
+  },
+
+  getDialogInfo(params, access_token, dialogID) {
+    return new Promise((resolve, reject) => {
+      request(`https://api.vk.com/method/messages.getChat?chat_id=${dialogID}&access_token=${access_token}`, params, resolve, reject);
+    });
+  },
+
+  getUserInfo(params, access_token, userID) {
+    return new Promise((resolve, reject) => {
+      request(`https://api.vk.com/method/users.get?user_ids=${userID}&access_token=${access_token}`, params, resolve, reject);
+    });
+  },
 }
