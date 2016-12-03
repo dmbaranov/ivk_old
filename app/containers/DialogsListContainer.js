@@ -27,46 +27,44 @@ export class DialogsListContainer extends Component {
 
   makeDialogs(dialogs, users) {
     return dialogs.map((item, index) => {
+      let title = '', body = '', uid = '';
+
+      if (item.chat_id) {
+        uid = item.chat_id;
+      }
+      else {
+        uid = users[index].uid;
+      }
+
       if (item.title !== '' && item.title !== ' ... ') {
+        title = item.title;
         if (item.attachment) {
-          return {
-            title: item.title,
-            body: item.attachments[0].type
-          };
+          body = item.attachments[0].type;
         }
         else if (item.fwd_messages) {
-          return {
-            title: item.title,
-            body: 'message'
-          };
+          body = 'message';
         }
         else {
-          return {
-            title: item.title,
-            body: item.body
-          };
+          body = item.body;
         }
       }
       else if (item.uid) {
+        title = `${users[index].first_name} ${users[index].last_name}`;
         if (item.attachment) {
-          return {
-            title: `${users[index].first_name} ${users[index].last_name}`,
-            body: item.attachments[0].type
-          };
+          body = item.attachments[0].type;
         }
         else if (item.fwd_messages) {
-          return {
-            title: `${users[index].first_name} ${users[index].last_name}`,
-            body: 'messages;'
-          };
+          body = 'message';
         }
         else {
-          return {
-            title: `${users[index].first_name} ${users[index].last_name}`,
-            body: item.body
-          }
+          body = item.body;
         }
       }
+      return {
+        title: title,
+        body: body,
+        uid: uid
+      };
     });
   }
 

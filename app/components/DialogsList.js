@@ -7,7 +7,7 @@ export default class DialogsList extends Component {
     return this.props.dialogsList.map((item, index) => {
       return (
         <div key={index} className={styles.dialogItem}>
-          <div>{item.title}</div>
+          <div>{item.title + ' ' + item.uid}</div>
           <div>{item.body}</div>
         </div>
       )
