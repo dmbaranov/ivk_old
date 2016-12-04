@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router';
 
 import styles from './DialogsList.scss';
 
@@ -6,10 +7,10 @@ export default class DialogsList extends Component {
   getDialogsList() {
     return this.props.dialogsList.map((item, index) => {
       return (
-        <div key={index} className={styles.dialogItem}>
+        <Link key={index} to={`dialog/${item.uid}`} className={styles.dialogItem}>
           <div>{item.title + ' ' + item.uid}</div>
           <div>{item.body}</div>
-        </div>
+        </Link>
       )
     });
   }

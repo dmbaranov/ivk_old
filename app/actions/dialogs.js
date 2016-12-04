@@ -4,9 +4,16 @@ export function saveDialogsList(dialogsList) {
   return dispatch => {
     dispatch({
       type: con.SAVE_DIALOGS_LIST,
-      payload: {
-        dialogsList: dialogsList
-      }
+      payload: {dialogsList}
+    });
+  };
+}
+
+export function saveDialog(dialog) {
+  return dispatch => {
+    dispatch({
+      type: con.SAVE_DIALOG,
+      payload: {dialog}
     });
   };
 }

@@ -7,9 +7,11 @@ import API from 'app/utils/API';
 
 export class DialogsListContainer extends Component {
   componentWillMount() {
+    const {access_token} = this.props.auth;
     const {dispatch} = this.props;
     const messages = [], usersIds = [];
-    API.getDialogsList(API.GET_REQUEST, this.props.auth.access_token)
+
+    API.getDialogsList(API.GET_REQUEST, access_token)
       .then(data => {
         data.map(item => {
           if (typeof item !== 'number') {
@@ -18,7 +20,7 @@ export class DialogsListContainer extends Component {
           }
         });
 
-        API.getUserInfo(API.GET_REQUEST, this.props.auth.access_token, usersIds.join(','))
+        API.getUserInfo(API.GET_REQUEST, access_token, usersIds.join(','))
           .then(users => {
             dispatch(saveDialogsList(this.makeDialogs(messages, users)));
           });
@@ -69,10 +71,11 @@ export class DialogsListContainer extends Component {
   }
 
   render() {
+    const {dialogs} = this.props;
     return (
       <div>
         <h1>DialogsList Container</h1>
-        <DialogsList dialogsList={this.props.dialogs.dialogsList}/>
+        <DialogsList dialogsList={dialogs.dialogsList}/>
       </div>
     )
   };

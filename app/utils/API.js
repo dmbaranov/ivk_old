@@ -47,4 +47,10 @@ export default {
       request(`https://api.vk.com/method/users.get?user_ids=${userID}&access_token=${access_token}`, params, resolve, reject);
     });
   },
+
+  getDialogHistory(params, access_token, userID) {
+    return new Promise((resolve, reject) => {
+      request(`https://api.vk.com/method/messages.getHistory?user_id=${userID}&access_token=${access_token}`, params, resolve, reject);
+    });
+  }
 }

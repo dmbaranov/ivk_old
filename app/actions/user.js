@@ -4,9 +4,7 @@ export function saveUser(userInfo) {
   return dispatch => {
     dispatch({
       type: con.SAVE_USER_INFO,
-      payload: {
-        userInfo: userInfo
-      }
-    })
-  }
+      payload: {userInfo}
+    });
+  };
 }

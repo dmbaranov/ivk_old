@@ -5,20 +5,22 @@ import Profile from 'app/components/Profile';
 import {saveUser} from 'app/actions/user';
 import API from 'app/utils/API';
 
-export class ProfileComponent extends Component {
+export class ProfileContainer extends Component {
   componentDidMount() {
     const {dispatch} = this.props;
-    API.getProfileInfo(API.GET_REQUEST, this.props.auth.access_token)
+    const {access_token} = this.props.auth;
+    API.getProfileInfo(API.GET_REQUEST, access_token)
       .then(data => {
         dispatch(saveUser(data));
       });
   }
 
   render() {
+    const {user} = this.props;
     return (
       <div>
         <h1>Profile container</h1>
-        <Profile userInfo={this.props.user.userInfo}/>
+        <Profile userInfo={user.userInfo}/>
       </div>
     )
   };
@@ -33,4 +35,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(ProfileComponent);
+export default connect(mapStateToProps)(ProfileContainer);
