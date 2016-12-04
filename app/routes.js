@@ -9,7 +9,7 @@ export default (
   <Route path="/" component={App}>
     <IndexRoute component={ProfileContainer}/>
     <Route path="/dialogs" component={DialogsListContainer}/>
-    <Route path="/dialog/:id" component={DialogContainer}/>
+    <Route path="/dialog/:type/:id" component={DialogContainer}/>
   </Route>
 
 )

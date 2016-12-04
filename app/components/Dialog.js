@@ -8,7 +8,7 @@ export default class Dialogs extends Component {
       return (
         <div key={index} className={styles.dialogItem}>
           <div>{item.user}</div>
-          <div>{item.message}</div>
+          <div>{item.body}</div>
         </div>
       )
     });

@@ -29,7 +29,7 @@ export class DialogsListContainer extends Component {
 
   makeDialogs(dialogs, users) {
     return dialogs.map((item, index) => {
-      let title = '', body = '', uid = '';
+      let title = '', body = '', uid = '', type = '';
 
       if (item.chat_id) {
         uid = item.chat_id;
@@ -38,8 +38,10 @@ export class DialogsListContainer extends Component {
         uid = users[index].uid;
       }
 
+      // if it's a conversation
       if (item.title !== '' && item.title !== ' ... ') {
         title = item.title;
+        type = 'conversation';
         if (item.attachment) {
           body = item.attachments[0].type;
         }
@@ -50,8 +52,10 @@ export class DialogsListContainer extends Component {
           body = item.body;
         }
       }
+      // if it's a dialog with a single user
       else if (item.uid) {
         title = `${users[index].first_name} ${users[index].last_name}`;
+        type = 'single';
         if (item.attachment) {
           body = item.attachments[0].type;
         }
@@ -65,7 +69,8 @@ export class DialogsListContainer extends Component {
       return {
         title: title,
         body: body,
-        uid: uid
+        uid: uid,
+        type: type
       };
     });
   }

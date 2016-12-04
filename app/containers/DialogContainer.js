@@ -8,7 +8,14 @@ import API from 'app/utils/API';
 export class DialogContainer extends Component {
   componentDidMount() {
     const {auth, dispatch} = this.props;
-    const userID = this.props.params.id;
+    let userID = '';
+    if (this.props.params.type === 'conversation') {
+      userID = 200000000 + this.props.params.id;
+    }
+    else {
+      userID = this.props.params.id;
+    }
+    // const userID = '2000000001';
     const messages = [];
     let userIds = new Set();
     API.getDialogHistory(API.GET_REQUEST, auth.access_token, userID)
@@ -31,16 +38,20 @@ export class DialogContainer extends Component {
   // Same function in DialogsContainer, refactor it later
   makeDialogs(messages, users) {
     const userIds = users.map(user => user.uid);
+    let body = '';
     return messages.map((message, index) => {
       const currentUserNumber = userIds.indexOf(messages[index].from_id);
-      // if (message.from_id === currentUserId) {
-      //   return {
-      //     message: message.body,
-      //     user: `${users[curre]}`
-      //   }
-      // }
+      if (message.attachment) {
+        body = message.attachments[0].type;
+      }
+      else if (message.fwd_messages) {
+        body = 'messages';
+      }
+      else {
+        body = message.body;
+      }
       return {
-        message: message.body,
+        body: body,
         user: `${users[currentUserNumber].first_name} ${users[currentUserNumber].last_name}`
       }
     });
