@@ -9,6 +9,15 @@ export function authUser(access_token) {
   };
 }
 
+export function logoutUser() {
+  return dispatch => {
+    dispatch({
+      type: con.LOGOUT_USER,
+      payload: {}
+    });
+  };
+}
+
 export function initAuth() {
   return dispatch => {
     const access_token = window.localStorage.getItem('access_token');

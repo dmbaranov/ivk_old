@@ -10,6 +10,9 @@ export default function auth(state=initialState, action) {
     case con.AUTH_USER:
       return { ...state, access_token: action.payload.access_token, isLoggedIn: true };
 
+    case con.LOGOUT_USER:
+      return initialState;
+
     default:
       return state;
   }

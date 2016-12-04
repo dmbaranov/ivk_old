@@ -12,6 +12,7 @@ export class MenuContainer extends Component {
         {/*<MenuItem/>*/}
         <Link to="/">Profile</Link>
         <Link to="/dialogs">Dialogs</Link>
+        <Link to="/logout">Logout</Link>
       </div>
     )
   };
