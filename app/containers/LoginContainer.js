@@ -5,13 +5,7 @@ import Login from 'app/components/Login';
 
 export class LoginContainer extends Component {
   render() {
-    console.log('Render LoginContainer');
-    return (
-      <div>
-        <h1>Login Container</h1>
-        <Login {...this.props}/>
-      </div>
-    )
+    return <Login {...this.props}/>;
   };
 }
 

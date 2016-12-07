@@ -5,8 +5,9 @@ import {Router, hashHistory} from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 
 import './openapi';
-import './bootstrap.global.css';
-import './bootstrap';
+// import './bootstrap.global.css';
+// import './bootstrap.js';
+import './styles/_app.scss';
 
 import routes from './routes';
 import configureStore from './store/configureStore';

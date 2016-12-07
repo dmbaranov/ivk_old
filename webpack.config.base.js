@@ -20,6 +20,9 @@ export default validate({
     }, {
       test: /\.scss$/,
       loader: 'style!css?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]!sass'
+    }, {
+      test: /\.woff2(\?\S*)?$/,
+      loader: 'file?name=public/fonts/[name].[ext]'
     }]
   },
 

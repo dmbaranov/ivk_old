@@ -7,12 +7,8 @@ import {logoutUser} from 'app/actions/auth';
 export class LogoutContainer extends Component {
   componentWillMount() {
     const {dispatch} = this.props;
-    setTimeout(() => {
-      window.localStorage.removeItem('access_token');
-      window.location.reload();
-      dispatch(logoutUser());
-      dispatch(push('/'));
-    }, 2000);
+    window.localStorage.removeItem('access_token');
+    dispatch(logoutUser());
   }
 
   render() {

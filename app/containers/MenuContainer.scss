@@ -1,0 +1,23 @@
+@import 'app/styles/_variables.scss';
+
+.menu {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+
+  background: $grey900;
+}
+
+.topMenuContainer {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: start;
+}
+
+.bottomMenuContainer {
+  grid-column: 1;
+  grid-row: 3;
+  align-self: end;
+}

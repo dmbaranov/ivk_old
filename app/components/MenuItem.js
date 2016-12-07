@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router';
+
+import styles from './MenuItem.scss';
 
 export default class MenuItem extends Component {
   render() {
     return (
-      <div>
-        <div>Menu component</div>
-      </div>
+      <Link className={styles.menuItem} to={this.props.link}>{this.props.title}</Link>
     )
   };
 }
