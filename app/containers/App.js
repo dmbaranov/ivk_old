@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import LoginContainer from 'app/containers/LoginContainer';
 import MenuContainer from 'app/containers/MenuContainer';
@@ -9,11 +10,13 @@ import {initAuth, authUser} from 'app/actions/auth';
 import { CLIENT_ID } from 'app/secret';
 import styles from './App.scss';
 
-// Hack for React Material UI
-import injectTapEventPlugin from 'react-tap-event-plugin';
-injectTapEventPlugin();
-
 export class App extends Component {
+  constructor() {
+    super();
+
+    injectTapEventPlugin();
+  }
+
   componentWillMount() {
     const {dispatch} = this.props;
     const {ipcRenderer} = require('electron');

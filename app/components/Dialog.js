@@ -9,6 +9,7 @@ export default class Dialogs extends Component {
         <div key={index} className={styles.dialogItem}>
           <div>{item.user}</div>
           <div>{item.body}</div>
+          <img src={item.photo}/>
         </div>
       )
     });

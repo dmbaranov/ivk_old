@@ -11,13 +11,8 @@
   grid-column: 2 / 3;
   grid-row: 2 / 3;
   align-self: center;
-}
 
-.buttonLogin {
-  grid-column: 2 / 3;
-  grid-row: 4 / 5;
-
-  align-self: start;
+  text-align: center;
 }
 
 .welcomeString {
@@ -29,4 +24,15 @@
 .ivkTitle {
   font-weight: bold;
   font-family: "Roboto-Bold", sans-serif;
+}
+
+.features {
+  text-align: left;
+}
+
+.buttonLogin {
+  grid-column: 2 / 3;
+  grid-row: 4 / 5;
+
+  align-self: start;
 }

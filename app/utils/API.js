@@ -42,9 +42,9 @@ export default {
     });
   },
 
-  getUserInfo(params, access_token, userID) {
+  getUserInfo(params, access_token, userID, fields='') {
     return new Promise((resolve, reject) => {
-      request(`https://api.vk.com/method/users.get?user_ids=${userID}&access_token=${access_token}`, params, resolve, reject);
+      request(`https://api.vk.com/method/users.get?user_ids=${userID}&fields=${fields}&access_token=${access_token}`, params, resolve, reject);
     });
   },
 

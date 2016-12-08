@@ -15,8 +15,9 @@ export class DialogContainer extends Component {
     else {
       userID = this.props.params.id;
     }
-    // const userID = '2000000001';
+
     const messages = [];
+    const requiredFields = 'photo';
     let userIds = new Set();
     API.getDialogHistory(API.GET_REQUEST, auth.access_token, userID)
       .then(data => {
@@ -28,7 +29,7 @@ export class DialogContainer extends Component {
         });
 
         userIds = [...userIds];
-        API.getUserInfo(API.GET_REQUEST, auth.access_token, userIds.join(','))
+        API.getUserInfo(API.GET_REQUEST, auth.access_token, userIds.join(','), requiredFields)
           .then(users => {
             dispatch(saveDialog(this.makeDialogs(messages, users)));
           });
@@ -52,7 +53,8 @@ export class DialogContainer extends Component {
       }
       return {
         body: body,
-        user: `${users[currentUserNumber].first_name} ${users[currentUserNumber].last_name}`
+        user: `${users[currentUserNumber].first_name} ${users[currentUserNumber].last_name}`,
+        photo: `${users[currentUserNumber].photo}`
       }
     });
     // return messages.map(message => {

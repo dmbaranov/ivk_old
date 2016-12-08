@@ -4,8 +4,6 @@
     <meta charset="utf-8">
     <title>Hello Electron React!</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,700,700i&amp;subset=cyrillic,cyrillic-ext,latin-ext" rel="stylesheet">
-    <!--<link href="https://necolas.github.io/normalize.css/5.0.0/normalize.css" rel="stylesheet">-->
-    <script src="https://vk.com/js/api/openapi.js?136" type="text/javascript"></script>
     <script>
       (function() {
         if (!process.env.HOT) {
@@ -18,12 +16,13 @@
     </script>
   </head>
   <body>
+    <div id="root"></div>
+    <script src="https://vk.com/js/api/openapi.js?136" type="text/javascript"></script>
     <script type="text/javascript">
       VK.init({
         apiId: 5747140
       });
     </script>
-    <div id="root"></div>
     <script>
       {
         const script = document.createElement('script');

@@ -16,7 +16,7 @@ export default class Login extends Component {
           <p>IVK является клиентом для популярной социальной сети Вконтакте. Он позволяет пользоваться социальной сетью незаметно для других!</p>
           <div>
             Список функций:
-            <ul>
+            <ul className={styles.features}>
               <li>Время последнего посещения не обновляется</li>
               <li>Отправитель сообщения не знает о том, что вы прочитали его сообщение</li>
               <li>Получатель вашего сообщения не знает о том,что вы печатаете текст</li>
@@ -24,7 +24,10 @@ export default class Login extends Component {
           </div>
         </div>
         <a className={styles.buttonLogin} href={VK_AUTH_URL}>
-          <RaisedButton label="Войти" primary={true} fullWidth={true}/>
+          <RaisedButton
+            label="Войти"
+            fullWidth={true}
+            primary={true}/>
         </a>
       </div>
     )

@@ -2,7 +2,7 @@
   width: 100vw;
   height: 100vh;
   display: grid;
-  grid-template-columns: 20% 1fr;
+  grid-template-columns: minmax(100px, 300px) minmax(500px, 1fr);
   grid-template-rows: 1fr;
 }
 
@@ -19,4 +19,10 @@
 .content {
   grid-column: 2;
   grid-row: 1;
+
+  max-height: 100vh;
+
+  background: #cccccc;
+
+  overflow: scroll;
 }
