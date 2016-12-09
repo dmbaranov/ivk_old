@@ -14,7 +14,8 @@ export default class DialogsList extends Component {
           key={index}
           primaryText={item.title}
           secondaryText={item.body}
-          leftAvatar={<Avatar src={item.photo} />}/>
+          leftAvatar={<Avatar src={item.photo} />}
+          onTouchTap={this.props.redirect.bind(this, `dialog/${item.type}/${item.uid}`)}/>
       );
       // return (
       //   <Link key={index} to={`dialog/${item.type}/${item.uid}`} className={styles.dialogItem}>

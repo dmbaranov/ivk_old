@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import ReactDOM from 'react-dom';
 
 import Dialog from 'app/components/Dialog';
 import {saveDialog} from 'app/actions/dialogs';
 import API from 'app/utils/API';
 
 export class DialogContainer extends Component {
-  componentDidMount() {
+  componentWillMount() {
     const {auth, dispatch} = this.props;
     let userID = '';
     if (this.props.params.type === 'conversation') {
@@ -34,6 +35,13 @@ export class DialogContainer extends Component {
             dispatch(saveDialog(this.makeDialogs(messages, users)));
           });
       });
+  }
+
+  componentDidMount() {
+    console.log(this.refs);
+    if (this.refs.lastElement) {
+      ReactDOM.findDOMNode(this.refs.lastElement).scrollIntoView();
+    }
   }
 
   // Same function in DialogsContainer, refactor it later
@@ -69,12 +77,24 @@ export class DialogContainer extends Component {
     // });
   }
 
+  renderDialogs = () => {
+    return this.props.dialogs.dialog.map((item, index) => {
+      return (
+        <Dialog
+          ref={index === this.props.dialogs.dialog.length - 1 ? 'lastElement' : ''}
+          key={index}
+          user={item.user}
+          body={item.body}
+          photo={item.photo}/>
+      )
+    });
+  };
+
   render() {
-    const {dialogs} = this.props;
     return (
       <div>
         <h1>Dialog container</h1>
-        <Dialog dialog={dialogs.dialog}/>
+        {this.renderDialogs()}
       </div>
     )
   };

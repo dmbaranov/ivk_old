@@ -11,7 +11,7 @@ export default function auth(state=initialState, action) {
       return { ...state, dialogsList: action.payload.dialogsList };
 
     case con.SAVE_DIALOG:
-      return { ...state, dialog: action.payload.dialog };
+      return { ...state, dialog: action.payload.dialog.reverse() };
 
     default:
       return state;

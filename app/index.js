@@ -4,7 +4,6 @@ import {Provider} from 'react-redux';
 import {Router, hashHistory} from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 
-import './openapi';
 import './styles/_app.scss';
 
 import routes from './routes';

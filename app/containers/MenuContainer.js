@@ -2,7 +2,9 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {push} from 'react-router-redux';
 import RaisedButton from 'material-ui/RaisedButton';
-import ActionAndroid from 'material-ui/svg-icons/action/android';
+import Person from 'material-ui/svg-icons/social/person';
+import Sms from 'material-ui/svg-icons/notification/sms';
+import ExitToApp from 'material-ui/svg-icons/action/exit-to-app';
 
 import styles from './MenuContainer.scss';
 // import MenuItem from 'app/components/MenuItem';
@@ -15,16 +17,16 @@ export class MenuContainer extends Component {
       topMenuItems: [{
         link: '/',
         title: 'Profile',
-        icon: 'ActionAndroid'
+        icon: <Person/>
       }, {
         link: '/dialogs',
         title: 'Dialogs',
-        icon: 'ActionAndroid'
+        icon: <Sms/>
       }],
       bottomMenuItems: [{
         link: '/logout',
         title: 'Logout',
-        icon: <ActionAndroid/>
+        icon: <ExitToApp/>
       }]
     };
   }
@@ -51,7 +53,7 @@ export class MenuContainer extends Component {
             color: '#ffffff',
             opacity: 0.7
           }}
-          icon={<ActionAndroid/>}
+          icon={item.icon}
           onTouchTap={this.redirect.bind(this, item.link)}/>
       );
       // return (

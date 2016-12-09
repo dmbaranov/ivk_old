@@ -16,11 +16,12 @@ export default class Dialogs extends Component {
   }
 
   render() {
-    return (
-      <div>
-        <div>Dialogs component</div>
-        {this.getMessages()}
+    return(
+      <div className={styles.dialogItem}>
+        <div>{this.props.user}</div>
+        <div>{this.props.body}</div>
+        <img src={this.props.photo}/>
       </div>
-    )
+    );
   };
 }

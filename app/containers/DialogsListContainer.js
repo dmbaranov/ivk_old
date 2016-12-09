@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {List} from 'material-ui/List';
+import {push} from 'react-router-redux';
 
 import DialogsList from 'app/components/DialogsList';
 import {saveDialogsList} from 'app/actions/dialogs';
@@ -28,6 +29,10 @@ export class DialogsListContainer extends Component {
           });
       });
   }
+
+  redirect = location => {
+    this.props.dispatch(push(location));
+  };
 
   makeDialogs(dialogs, users) {
     return dialogs.map((item, index) => {
@@ -69,7 +74,6 @@ export class DialogsListContainer extends Component {
           body = item.body;
         }
       }
-      console.log(photo);
       return {
         title: title,
         body: body,
@@ -84,7 +88,9 @@ export class DialogsListContainer extends Component {
     const {dialogs} = this.props;
     return (
       <div>
-        <DialogsList dialogsList={dialogs.dialogsList}/>
+        <DialogsList
+          dialogsList={dialogs.dialogsList}
+          redirect={this.redirect}/>
       </div>
     )
   };
