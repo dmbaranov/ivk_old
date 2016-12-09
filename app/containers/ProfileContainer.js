@@ -2,17 +2,14 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import Profile from 'app/components/Profile';
-import {saveUser} from 'app/actions/user';
+import {getUserData} from 'app/actions/user';
 import API from 'app/utils/API';
 
 export class ProfileContainer extends Component {
   componentDidMount() {
     const {dispatch} = this.props;
     const {access_token} = this.props.auth;
-    API.getProfileInfo(API.GET_REQUEST, access_token)
-      .then(data => {
-        dispatch(saveUser(data));
-      });
+    dispatch(getUserData(access_token));
   }
 
   render() {

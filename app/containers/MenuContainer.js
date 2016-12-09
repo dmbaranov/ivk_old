@@ -56,13 +56,6 @@ export class MenuContainer extends Component {
           icon={item.icon}
           onTouchTap={this.redirect.bind(this, item.link)}/>
       );
-      // return (
-      //   <MenuItem
-      //     className={styles.menuItem}
-      //     key={index}
-      //     link={item.link}
-      //     title={item.title}/>
-      // )
     });
   };
 

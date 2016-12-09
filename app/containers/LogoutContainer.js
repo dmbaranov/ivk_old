@@ -12,9 +12,7 @@ export class LogoutContainer extends Component {
   }
 
   render() {
-    return (
-      <h1>Logout container</h1>
-    )
+    return null;
   };
 }
 
