@@ -7,7 +7,6 @@ import Sms from 'material-ui/svg-icons/notification/sms';
 import ExitToApp from 'material-ui/svg-icons/action/exit-to-app';
 
 import styles from './MenuContainer.scss';
-// import MenuItem from 'app/components/MenuItem';
 
 export class MenuContainer extends Component {
   constructor() {

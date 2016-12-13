@@ -2,7 +2,8 @@ import * as con from 'app/constants/dialogs';
 
 const initialState = {
   dialogsList: [],
-  dialog: []
+  dialog: [],
+  isPending: false
 };
 
 export default function auth(state=initialState, action) {
@@ -12,6 +13,9 @@ export default function auth(state=initialState, action) {
 
     case con.SAVE_DIALOG:
       return { ...state, dialog: action.payload.dialog.reverse() };
+
+    case con.TOGGLE_PENDING:
+      return { ...state, isPending: !state.isPending };
 
     default:
       return state;

@@ -7,6 +7,7 @@ import {logoutUser} from 'app/actions/auth';
 export class LogoutContainer extends Component {
   componentWillMount() {
     const {dispatch} = this.props;
+
     window.localStorage.removeItem('access_token');
     dispatch(logoutUser());
   }

@@ -14,12 +14,14 @@ export class App extends Component {
   constructor() {
     super();
 
+    // For the material-ui
     injectTapEventPlugin();
   }
 
   componentWillMount() {
     const {dispatch} = this.props;
     const {ipcRenderer} = require('electron');
+
     ipcRenderer.on('get_access_token', (event, data) => {
       dispatch(authUser(data.access_token));
     });
@@ -36,7 +38,7 @@ export class App extends Component {
           <div className={styles.menu}>
             <MenuContainer/>
           </div>
-          <div className={styles.content}>
+          <div className={styles.content} id="temp">
             {this.props.children}
           </div>
         </div>

@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Avatar from 'material-ui/Avatar';
+import RefreshIndicator from 'material-ui/RefreshIndicator';
 import {List, ListItem} from 'material-ui/List';
 import {push} from 'react-router-redux';
 
 import {getDialogsList} from 'app/actions/dialogs';
+import styles from './DialogsListContainer.scss';
 
 export class DialogsListContainer extends Component {
   componentWillMount() {
@@ -20,6 +22,7 @@ export class DialogsListContainer extends Component {
 
   renderDialogs = () => {
     const {dialogsList} = this.props.dialogs;
+
     return dialogsList.map((item, index) => {
       return (
         <ListItem
@@ -32,15 +35,37 @@ export class DialogsListContainer extends Component {
     });
   };
 
+  renderContent() {
+    const {isPending} = this.props.dialogs;
+    const indicatorStyles = {
+      position: 'relative'
+    };
+
+    if (isPending === true) {
+      return (
+        <RefreshIndicator
+          className={styles.indicator}
+          style={indicatorStyles}
+          size={50}
+          status="loading"
+          top={0}
+          left={0}/>
+      )
+    }
+    else {
+      return (
+        <List>
+          {this.renderDialogs()}
+        </List>
+      )
+    }
+  }
+
   render() {
-    const {dialogs} = this.props;
     return (
-      <List>
-        {this.renderDialogs()}
-        {/*<DialogsList*/}
-          {/*dialogsList={dialogs.dialogsList}*/}
-          {/*redirect={this.redirect}/>*/}
-      </List>
+      <div className={styles.container}>
+        {this.renderContent()}
+      </div>
     )
   };
 }

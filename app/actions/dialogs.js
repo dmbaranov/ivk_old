@@ -6,6 +6,8 @@ export function getDialogsList(access_token) {
     const messages = [];
     const requiredFields = 'photo';
 
+    dispatch(togglePending());
+
     API.getDialogsList(API.GET_REQUEST, access_token)
       .then(data => {
         data.map(item => {
@@ -19,16 +21,19 @@ export function getDialogsList(access_token) {
           .then(users => {
             const dialogs = makeDialogsList(messages, users);
             dispatch(saveDialogsList(dialogs));
+            dispatch(togglePending());
           });
       });
   }
 }
 
-export function getDialog(access_token, userID) {
+export function getMessages(access_token, userID) {
   return dispatch => {
     const messages = [];
     const requiredFields = 'photo';
     let userIds = null;
+
+    dispatch(togglePending());
 
     API.getDialogHistory(API.GET_REQUEST, access_token, userID)
       .then(data => {
@@ -43,8 +48,9 @@ export function getDialog(access_token, userID) {
 
         API.getUserInfo(API.GET_REQUEST, access_token, userIds, requiredFields)
           .then(users => {
-            const dialog = makeDialog(messages, users);
+            const dialog = makeMessages(messages, users);
             dispatch(saveDialog(dialog));
+            dispatch(togglePending());
           });
       });
   }
@@ -88,7 +94,7 @@ function makeDialogsList(messages, users) {
   });
 }
 
-function makeDialog(messages, users) {
+function makeMessages(messages, users) {
   const userIds = users.map(user => user.uid);
   let body = '';
   return messages.map((message, index) => {
@@ -121,5 +127,11 @@ function saveDialog(dialog) {
   return {
     type: con.SAVE_DIALOG,
     payload: {dialog}
-  }
+  };
+}
+
+function togglePending() {
+  return {
+    type: con.TOGGLE_PENDING
+  };
 }

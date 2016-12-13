@@ -1,9 +1,12 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import ReactDOM from 'react-dom';
+import RefreshIndicator from 'material-ui/RefreshIndicator';
 
 import Message from 'app/components/Message';
-import {getDialog} from 'app/actions/dialogs';
+
+import {getMessages} from 'app/actions/dialogs';
+import styles from './MessagesContainer.scss';
 
 export class MessagesContainer extends Component {
   componentWillMount() {
@@ -18,15 +21,16 @@ export class MessagesContainer extends Component {
       userID = this.props.params.id;
     }
 
-    dispatch(getDialog(access_token, userID));
+    dispatch(getMessages(access_token, userID));
   }
 
-  componentDidMount() {
-    // TODO: Doesn't work properly while first load. Fix it with REQUEST DISPATCH
-    if (this.refs.lastElement) {
-      ReactDOM.findDOMNode(this.refs.lastElement).scrollIntoView();
+  componentDidUpdate() {
+    // TODO: Try to find a better solution to scroll to the bottom of the page
+    if (this.refs.container) {
+      $(ReactDOM.findDOMNode(this.refs.container)).animate({scrollTop: 10000}, 1);
     }
   }
+
 
   renderMessages = () => {
     return this.props.dialogs.dialog.map((item, index) => {
@@ -41,11 +45,34 @@ export class MessagesContainer extends Component {
     });
   };
 
+  renderContent() {
+    const {isPending} = this.props.dialogs;
+    const indicatorStyles = {
+      position: 'relative'
+    };
+
+    if (isPending === true) {
+      return (
+        <div>
+          <RefreshIndicator
+            className={styles.indicator}
+            style={indicatorStyles}
+            size={50}
+            status="loading"
+            top={0}
+            left={0}/>
+        </div>
+      )
+    }
+    else {
+      return this.renderMessages();
+    }
+  }
+
   render() {
     return (
-      <div>
-        <h1>Dialog container</h1>
-        {this.renderMessages()}
+      <div className={styles.container} ref="container">
+        {this.renderContent()}
       </div>
     )
   };

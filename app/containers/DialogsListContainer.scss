@@ -1,0 +1,13 @@
+.container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  min-height: 100vh;
+  align-items: center;
+}
+
+.indicator {
+  grid-column: 1;
+  grid-row: 1;
+  justify-self: center;
+}

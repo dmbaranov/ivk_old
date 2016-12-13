@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  height: 100vh;
+  align-items: flex-start;
+  align-content: flex-start;
+
+  overflow: scroll;
+}
+
+.indicator {
+  grid-column: 1;
+  grid-row: 1;
+  justify-self: center;
+}
