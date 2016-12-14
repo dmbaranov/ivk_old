@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 import * as con from 'app/constants/dialogs';
 import API from 'app/utils/API';
 
@@ -49,28 +51,46 @@ export function getMessages(access_token, userID) {
         API.getUserInfo(API.GET_REQUEST, access_token, userIds, requiredFields)
           .then(users => {
             const dialog = makeMessages(messages, users);
-            dispatch(saveDialog(dialog));
+            const dialogId = userID;
+            dispatch(saveDialog(dialog, dialogId));
             dispatch(togglePending());
           });
       });
   }
 }
 
+export function sendMessage(access_token, dialogID, message) {
+  return dispatch => {
+    const randomNumber = Math.floor(Math.random() * 100000 + 1);
+
+    console.log(dialogID);
+
+    API.sendMessage(API.GET_REQUEST, access_token, message, dialogID, randomNumber);
+  };
+  // const randomNumber = Math.floor(Math.random() * 100000 + 1);
+  //
+  // API.sendMessage(API.GET_REQUEST, access_token, message, dialogID, randomNumber)
+  //   .then(response => {
+  //     console.log(response);
+  //   });
+}
+
 function makeDialogsList(messages, users) {
-  return messages.map((item, index) => {
+
+  const usersList = _.keyBy(users, 'uid');
+
+  return messages.map(item => {
     let title = '', body = '', uid = '', type = '', photo = '';
 
-    // if current dialog is conversation
     if (item.chat_id) {
       uid = item.chat_id;
       title = item.title;
       type = 'conversation';
     }
-    // if it's a dialog with a single user
     else {
-      uid = users[index].uid;
-      photo = users[index].photo;
-      title = `${users[index].first_name} ${users[index].last_name}`;
+      uid = item.uid;
+      photo = usersList[uid].photo;
+      title = `${usersList[uid].first_name} ${usersList[uid].last_name}`;
       type = 'single';
     }
 
@@ -123,10 +143,11 @@ function saveDialogsList(dialogsList) {
   };
 }
 
-function saveDialog(dialog) {
+function saveDialog(dialog, dialogId) {
   return {
     type: con.SAVE_DIALOG,
-    payload: {dialog}
+    payload: {dialog, dialogId}
+
   };
 }
 

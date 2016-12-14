@@ -52,5 +52,11 @@ export default {
     return new Promise((resolve, reject) => {
       request(`https://api.vk.com/method/messages.getHistory?user_id=${userID}&access_token=${access_token}`, params, resolve, reject);
     });
+  },
+
+  sendMessage(params, access_token, message, dialogID, randomID) {
+    return new Promise((resolve, reject) => {
+      request(`https://api.vk.com/method/messages.send?peer_id=${dialogID}&message=${message}&random_id=${randomID}&access_token=${access_token}&v=5.60`, params, resolve, reject);
+    });
   }
 }

@@ -8,7 +8,7 @@ import Send from 'material-ui/svg-icons/content/send';
 
 import Message from 'app/components/Message';
 
-import {getMessages} from 'app/actions/dialogs';
+import {getMessages, sendMessage} from 'app/actions/dialogs';
 import styles from './MessagesContainer.scss';
 
 export class MessagesContainer extends Component {
@@ -18,7 +18,8 @@ export class MessagesContainer extends Component {
     let userID = '';
 
     if (this.props.params.type === 'conversation') {
-      userID = 200000000 + this.props.params.id;
+      // userID = 200000000 + this.props.params.id;
+      userID = 2000000 + this.props.params.id;
     }
     else {
       userID = this.props.params.id;
@@ -34,6 +35,17 @@ export class MessagesContainer extends Component {
     }
   }
 
+  sendMessage = e => {
+    e.preventDefault();
+
+    const {dispatch} = this.props;
+    const {access_token} = this.props.auth;
+    const {dialogId} = this.props.dialogs;
+    const message = this.refs.tempTextField.input.value;
+
+
+    dispatch(sendMessage(access_token, dialogId, message));
+  };
 
   renderMessages = () => {
     return this.props.dialogs.dialog.map((item, index) => {
@@ -47,7 +59,7 @@ export class MessagesContainer extends Component {
     });
   };
 
-  renderContent() {
+  renderContent = () => {
     const {isPending} = this.props.dialogs;
     const indicatorStyles = {
       position: 'relative'
@@ -69,41 +81,28 @@ export class MessagesContainer extends Component {
       return (
         <div className={styles.messagesContainer}>
           {this.renderMessages()}
-          <div className={styles.inputContainer}>
+          <form className={styles.inputContainer} onSubmit={this.sendMessage}>
             <TextField
+              ref="tempTextField"
               floatingLabelText="Введите сообщение"
-              multiLine={true}
-              rows={4}
-              rowsMax={4}
               fullWidth={true}/>
             <IconButton
               style={{
                 alignSelf: 'center',
-                width: 120,
-                height: 120,
-                padding: 30
+                width: 72,
+                height: 72,
+                padding: 16
               }}
               iconStyle={{
-                width: 60,
-                height: 60
-              }}>
+                width: 36,
+                height: 36
+              }}
+              onClick={this.sendMessage}>
               <Send />
             </IconButton>
-          </div>
+          </form>
         </div>
       );
-      // return (
-      //   <div>
-      //     {this.renderMessages()}
-      //     <div className={styles.inputContainer}>
-      //       <TextField
-      //         floatingLabelText="Введите сообщение"
-      //         multiLine={true}
-      //         rowsMax={2}
-      //         fullWidth={true}/>
-      //     </div>
-      //   </div>
-      // );
     }
   }
 
