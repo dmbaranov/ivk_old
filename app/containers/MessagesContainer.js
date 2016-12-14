@@ -8,7 +8,7 @@ import Send from 'material-ui/svg-icons/content/send';
 
 import Message from 'app/components/Message';
 
-import {getMessages, sendMessage} from 'app/actions/dialogs';
+import {getMessages, sendMessage, clearDialog} from 'app/actions/dialogs';
 import styles from './MessagesContainer.scss';
 
 export class MessagesContainer extends Component {
@@ -26,6 +26,11 @@ export class MessagesContainer extends Component {
     }
 
     dispatch(getMessages(access_token, userID));
+  }
+
+  componentWillUnmount() {
+    const {dispatch} = this.props;
+    dispatch(clearDialog());
   }
 
   componentDidUpdate() {

@@ -22,6 +22,9 @@ export default function auth(state=initialState, action) {
     case con.TOGGLE_PENDING:
       return { ...state, isPending: !state.isPending };
 
+    case con.CLEAR_DIALOG:
+      return initialState;
+
     default:
       return state;
   }

@@ -67,12 +67,12 @@ export function sendMessage(access_token, dialogID, message) {
 
     API.sendMessage(API.GET_REQUEST, access_token, message, dialogID, randomNumber);
   };
-  // const randomNumber = Math.floor(Math.random() * 100000 + 1);
-  //
-  // API.sendMessage(API.GET_REQUEST, access_token, message, dialogID, randomNumber)
-  //   .then(response => {
-  //     console.log(response);
-  //   });
+}
+
+export function clearDialog() {
+  return dispatch => {
+    dispatch(clearDialogState());
+  }
 }
 
 function makeDialogsList(messages, users) {
@@ -154,5 +154,11 @@ function saveDialog(dialog, dialogId) {
 function togglePending() {
   return {
     type: con.TOGGLE_PENDING
+  };
+}
+
+function clearDialogState() {
+  return {
+    type: con.CLEAR_DIALOG
   };
 }
