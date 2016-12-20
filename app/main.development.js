@@ -55,6 +55,8 @@ app.on('ready', async () => {
 
   mainWindow.loadURL(`file://${__dirname}/app.html`);
 
+  mainWindow.openDevTools();
+
   mainWindow.on('page-title-updated', params => {
     const urls = params.sender.history;
     if (urls[urls.length - 1].indexOf('https://oauth.vk.com/blank.html') >= 0) {

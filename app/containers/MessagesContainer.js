@@ -2,11 +2,9 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import ReactDOM from 'react-dom';
 import RefreshIndicator from 'material-ui/RefreshIndicator';
-import TextField from 'material-ui/TextField';
-import IconButton from 'material-ui/IconButton';
-import Send from 'material-ui/svg-icons/content/send';
 
 import Message from 'app/components/Message';
+import MessageInput from 'app/components/MessageInput';
 
 import {getMessages, sendMessage, clearDialog} from 'app/actions/dialogs';
 import styles from './MessagesContainer.scss';
@@ -18,8 +16,7 @@ export class MessagesContainer extends Component {
     let userID = '';
 
     if (this.props.params.type === 'conversation') {
-      // userID = 200000000 + this.props.params.id;
-      userID = 2000000 + this.props.params.id;
+      userID = +2000000000 + +this.props.params.id;
     }
     else {
       userID = this.props.params.id;
@@ -40,14 +37,10 @@ export class MessagesContainer extends Component {
     }
   }
 
-  sendMessage = e => {
-    e.preventDefault();
-
+  sendMessage = message => {
     const {dispatch} = this.props;
     const {access_token} = this.props.auth;
     const {dialogId} = this.props.dialogs;
-    const message = this.refs.tempTextField.input.value;
-
 
     dispatch(sendMessage(access_token, dialogId, message));
   };
@@ -86,26 +79,7 @@ export class MessagesContainer extends Component {
       return (
         <div className={styles.messagesContainer}>
           {this.renderMessages()}
-          <form className={styles.inputContainer} onSubmit={this.sendMessage}>
-            <TextField
-              ref="tempTextField"
-              floatingLabelText="Введите сообщение"
-              fullWidth={true}/>
-            <IconButton
-              style={{
-                alignSelf: 'center',
-                width: 72,
-                height: 72,
-                padding: 16
-              }}
-              iconStyle={{
-                width: 36,
-                height: 36
-              }}
-              onClick={this.sendMessage}>
-              <Send />
-            </IconButton>
-          </form>
+          <MessageInput onSubmit={this.sendMessage}/>
         </div>
       );
     }

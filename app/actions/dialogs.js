@@ -63,9 +63,13 @@ export function sendMessage(access_token, dialogID, message) {
   return dispatch => {
     const randomNumber = Math.floor(Math.random() * 100000 + 1);
 
-    console.log(dialogID);
-
-    API.sendMessage(API.GET_REQUEST, access_token, message, dialogID, randomNumber);
+    API.sendMessage(API.GET_REQUEST, access_token, message, dialogID, randomNumber)
+      .then(messageID => {
+        API.getMessage(API.GET_REQUEST, access_token, messageID)
+          .then(message => {
+            dispatch(addMessageToDialog(message[1]));
+          });
+      })
   };
 }
 
@@ -161,4 +165,11 @@ function clearDialogState() {
   return {
     type: con.CLEAR_DIALOG
   };
+}
+
+function addMessageToDialog(message) {
+  return {
+    type: con.ADD_MESSAGE_TO_DIALOG,
+    payload: {message}
+  }
 }
