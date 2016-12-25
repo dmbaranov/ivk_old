@@ -11,7 +11,8 @@ import { ENV_PROVIDERS } from './environment';
 import { ROUTES } from './app.routes';
 // App is our top level component
 import { AppComponent } from './app.component';
-import { HomeComponent } from 'pages/home/home.component';
+import { HomeModule } from 'pages/home/home.module';
+// import { HomeComponent } from 'pages/home/home.component';
 
 // Application wide providers
 // const APP_PROVIDERS = [
@@ -25,14 +26,14 @@ import { HomeComponent } from 'pages/home/home.component';
 @NgModule({
     bootstrap: [ AppComponent ],
     declarations: [
-        AppComponent,
-        HomeComponent,
+        AppComponent
     ],
     imports: [ // import Angular's modules
         BrowserModule,
         FormsModule,
         HttpModule,
-        RouterModule.forRoot(ROUTES, { useHash: true, preloadingStrategy: PreloadAllModules })
+        HomeModule,
+        RouterModule.forRoot(ROUTES)
     ],
     providers: [ // expose our Services and Providers into Angular's dependency injection
         ENV_PROVIDERS,

@@ -5,4 +5,5 @@ import { HomeComponent } from 'pages/home/home.component';
 export const ROUTES: Routes = [
     { path: '',      component: HomeComponent },
     { path: 'home',  component: HomeComponent },
+    { path: 'about', loadChildren: 'pages/about/about.module#AboutModule' }
 ];
