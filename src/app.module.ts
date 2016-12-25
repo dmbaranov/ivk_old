@@ -11,7 +11,7 @@ import { ENV_PROVIDERS } from './environment';
 import { ROUTES } from './app.routes';
 // App is our top level component
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home';
+import { HomeComponent } from 'pages/home/home.component';
 
 // Application wide providers
 // const APP_PROVIDERS = [
@@ -23,23 +23,23 @@ import { HomeComponent } from './home';
  * `AppModule` is the main entry point into Angular2's bootstraping process
  */
 @NgModule({
-  bootstrap: [ AppComponent ],
-  declarations: [
-    AppComponent,
-    HomeComponent,
-  ],
-  imports: [ // import Angular's modules
-    BrowserModule,
-    FormsModule,
-    HttpModule,
-    RouterModule.forRoot(ROUTES, { useHash: true, preloadingStrategy: PreloadAllModules })
-  ],
-  providers: [ // expose our Services and Providers into Angular's dependency injection
-    ENV_PROVIDERS,
-  ]
+    bootstrap: [ AppComponent ],
+    declarations: [
+        AppComponent,
+        HomeComponent,
+    ],
+    imports: [ // import Angular's modules
+        BrowserModule,
+        FormsModule,
+        HttpModule,
+        RouterModule.forRoot(ROUTES, { useHash: true, preloadingStrategy: PreloadAllModules })
+    ],
+    providers: [ // expose our Services and Providers into Angular's dependency injection
+        ENV_PROVIDERS,
+    ]
 })
 export class AppModule {
-  constructor(public appRef: ApplicationRef) {}
+    constructor(public appRef: ApplicationRef) {}
 
 }
 
