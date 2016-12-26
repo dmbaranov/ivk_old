@@ -1,10 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { HomeService } from './home.service';
 
 @Component({
-  selector: 'home',  // <home></home>
+  selector: 'home',
   styleUrls: [ './home.component.css' ],
   templateUrl: './home.component.html'
 })
-export class HomeComponent {
-  constructor() { }
+export class HomeComponent implements OnInit {
+  message: string;
+
+  constructor(private homeService: HomeService) { }
+
+  ngOnInit() {
+    this.message = this.homeService.getData();
+  }
 }
