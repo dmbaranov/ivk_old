@@ -3,7 +3,7 @@ import { HomeService } from './home.service';
 
 @Component({
   selector: 'home',
-  styleUrls: [ './home.component.css' ],
+  styleUrls: ['./home.component.scss'],
   templateUrl: './home.component.html'
 })
 export class HomeComponent implements OnInit {

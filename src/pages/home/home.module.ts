@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { HomeComponent } from './home.component';
-import { HomeRoutingModule } from './home.routing';
+import { HomeRoutingModule } from './home-routing.module';
 import { HomeService } from './home.service';
 
 @NgModule({

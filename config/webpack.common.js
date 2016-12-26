@@ -145,6 +145,16 @@ module.exports = function (options) {
           use: 'file-loader'
         },
 
+        // {
+        //   test: /\.scss$/,
+        //   loader: 'style!css?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]!autoprefixer-loader?browsers=last 15 versions!sass'
+        // }
+        {
+          test: /\.scss$/,
+          exclude: /node_modules/,
+          loaders: ['raw-loader', 'sass-loader'] // sass-loader not scss-loader
+        }
+
       ],
 
     },
