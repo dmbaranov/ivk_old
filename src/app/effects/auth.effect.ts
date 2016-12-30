@@ -18,10 +18,12 @@ export class AuthEffects {
   @Effect()
   login$: Observable<Action> = this.actions$
     .ofType(auth.ActionTypes.LOGIN)
-    .map((action: auth.LoginAction) => action.payload)
-    .switchMap(token => {
+    .map((action: auth.LoginAction) => action)
+    .switchMap(() => {
       return this.authService.loginUser()
-        .map(token => new auth.LoginSuccessAction(token))
-        .catch(() => of(new auth.LoginErrorAction()))
+        .map(token => {
+          return new auth.LoginSuccessAction(token)
+        })
+        .catch(() => of(new auth.LoginErrorAction('Error')))
     });
 }

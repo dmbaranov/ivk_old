@@ -11,7 +11,7 @@ export const ActionTypes = {
 export class LoginAction implements Action {
     type = ActionTypes.LOGIN;
 
-    constructor(public payload: string) { }
+    constructor() { }
 }
 
 export class LoginSuccessAction implements Action {
@@ -22,10 +22,14 @@ export class LoginSuccessAction implements Action {
 
 export class LoginErrorAction implements Action {
     type = ActionTypes.LOGIN_ERROR;
+
+    constructor(public payload: string) { }
 }
 
 export class LogoutAction implements Action {
     type = ActionTypes.LOGOUT;
+
+    constructor(public payload: string) { }
 }
 
 export type Actions

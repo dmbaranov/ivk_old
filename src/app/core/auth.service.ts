@@ -10,6 +10,6 @@ export class AuthService {
     constructor() { }
 
     loginUser(): Observable<string> {
-        return Observable.of(data).map(res => JSON.stringify(res));
+        return Observable.of(data).map(res => res.token);
     }
 }

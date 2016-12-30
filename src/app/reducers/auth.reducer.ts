@@ -1,5 +1,3 @@
-import { createSelector } from 'reselect';
-import { AuthModel } from 'app/models/auth.model';
 import * as auth from 'app/actions/auth.actions';
 
 export interface State {
@@ -14,9 +12,8 @@ const initialState: State = {
 
 export function reducer(state = initialState, action: auth.Actions): State {
     switch(action.type) {
-        case auth.ActionTypes.LOGIN: {
-            console.log('inside auth.reducer, payload is: ', action);
-            return { isAuthenticated: true, access_token: '' };
+        case auth.ActionTypes.LOGIN_SUCCESS: {
+            return { isAuthenticated: true, access_token: action.payload };
         }
 
         default: {
