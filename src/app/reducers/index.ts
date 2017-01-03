@@ -24,6 +24,6 @@ export function reducer(state: any, action: any) {
   return developmentReducer(state, action);
 }
 
-export const getAuthState = (state: State) => state.auth;
+const getAuthState = (state: State) => state.auth;
 
 export const getAuthStatus = createSelector(getAuthState, authReducer.getAuthStatus);

@@ -10,6 +10,7 @@ export const ActionTypes = {
 
 export class LoginAction implements Action {
     type = ActionTypes.LOGIN;
+    payload: string = null; // TODO: find the way to delete this payload, it's not needed, just fix for ts
 
     constructor() { }
 }
@@ -34,4 +35,5 @@ export class LogoutAction implements Action {
 
 export type Actions
     = LoginAction
+    | LoginSuccessAction
     | LogoutAction;

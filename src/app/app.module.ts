@@ -1,6 +1,8 @@
+import 'hammerjs';
 import {NgModule, ApplicationRef} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {RouterModule} from '@angular/router';
+import { MaterialModule } from '@angular/material';
 
 import {StoreModule} from '@ngrx/store';
 import {EffectsModule} from '@ngrx/effects';
@@ -14,6 +16,7 @@ import { reducer } from 'app/reducers';
 import {ROUTES} from './app.routing';
 
 import {CoreModule} from 'app/core/core.module';
+import {LoginPageModule} from 'app/pages/login/login.module';
 import {AppComponent} from './app.component';
 import {SideMenuComponent} from 'app/components/side-menu/side-menu.component';
 
@@ -23,6 +26,8 @@ import {SideMenuComponent} from 'app/components/side-menu/side-menu.component';
   imports: [
     BrowserModule,
     CoreModule,
+    LoginPageModule,
+    MaterialModule.forRoot(),
     RouterModule.forRoot(ROUTES, {useHash: true}),
     StoreModule.provideStore(reducer),
     RouterStoreModule.connectRouter(),
