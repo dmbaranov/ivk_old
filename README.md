@@ -1,3 +1,3 @@
 # IVK
 
-IVK is under heave development right now.
+IVK is under heavy development right now.
