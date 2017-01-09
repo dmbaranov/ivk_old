@@ -14,7 +14,7 @@ export class DialogsContainer extends Component {
   }
 
   render() {
-    const {dialogs, users} = this.props.dialogs;
+    const {dialogs} = this.props.dialogs;
     const dialogsList = dialogs.map((item, index) => {
       return <ListItem key={index}
                        primaryText={item.title}

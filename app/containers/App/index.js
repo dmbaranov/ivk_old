@@ -15,7 +15,8 @@ export class App extends Component {
   static propTypes = {
     auth: PropTypes.shape({
       isLoggedIn: PropTypes.bool.isRequired,
-      access_token: PropTypes.string.isRequired
+      access_token: PropTypes.string.isRequired,
+      uid: PropTypes.string.isRequired
     }),
     actions: PropTypes.object.isRequired
   };
@@ -30,6 +31,7 @@ export class App extends Component {
   componentDidMount() {
     const {initAuth, authUser} = this.props.actions;
     ipcRenderer.on('get_access_token', (event, data) => {
+      // This is message for the Electron main process
       authUser(data.access_token, data.uid);
     });
 
