@@ -42,15 +42,15 @@ export default {
     });
   },
 
-  getDialogUsers(params, access_token, chat_id, fields) {
+  getDialogUsers(params, access_token, chat_ids, fields) {
     return new Promise((resolve, reject) => {
-      request(`https://api.vk.com/method/messages.getChatUsers?access_token=${access_token}&chat_ids=${chat_id}&fields=${fields}`, params, resolve, reject);
+      request(`https://api.vk.com/method/messages.getChatUsers?access_token=${access_token}&chat_ids=${chat_ids}&fields=${fields}`, params, resolve, reject);
     });
   },
 
   getUserInfo(params, access_token, user_ids, fields='') {
     return new Promise((resolve, reject) => {
-      request(`https://api.vk.com/method/messages.getChatUsers?access_token=${access_token}&user_ids=${user_ids}?fields=${fields}`, params, resolve, reject);
+      request(`https://api.vk.com/method/users.get?access_token=${access_token}&user_ids=${user_ids}&fields=${fields}`, params, resolve, reject);
     });
   },
 }

@@ -14,11 +14,12 @@ export class DialogsContainer extends Component {
   }
 
   render() {
-    const {dialogs} = this.props.dialogs;
+    const {dialogs, users} = this.props.dialogs;
     const dialogsList = dialogs.map((item, index) => {
       return <ListItem key={index}
                        primaryText={item.title}
-                       secondaryText={item.body}/>
+                       secondaryText={item.body}
+                       leftAvatar={<Avatar src={item.avatar}/>}/>
     });
 
     return (
