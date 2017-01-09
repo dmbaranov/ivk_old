@@ -1,7 +1,7 @@
-import React, { Component, PropTypes } from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import { ipcRenderer } from 'electron';
+import React, {Component, PropTypes} from 'react';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import {ipcRenderer} from 'electron';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
@@ -27,10 +27,10 @@ export class App extends Component {
     injectTapEventPlugin();
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const {initAuth, authUser} = this.props.actions;
     ipcRenderer.on('get_access_token', (event, data) => {
-      authUser(data.access_token);
+      authUser(data.access_token, data.uid);
     });
 
     initAuth();

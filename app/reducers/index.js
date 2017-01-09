@@ -3,9 +3,13 @@ import { routerReducer as routing } from 'react-router-redux';
 
 import * as con from 'app/constants/auth';
 import auth from './auth';
+import profile from './profile';
+import dialogs from './dialogs';
 
 const appReducer = combineReducers({
   auth,
+  profile,
+  dialogs,
   routing
 });
 

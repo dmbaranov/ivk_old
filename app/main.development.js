@@ -57,13 +57,17 @@ app.on('ready', async () => {
     const urls = params.sender.history;
     if (urls[urls.length - 1].indexOf('https://oauth.vk.com/blank.html') >= 0) {
       const url = urls[urls.length - 1];
-      const startIndex = url.indexOf('access_token');
-      const finishIndex = url.indexOf('&', startIndex);
-      const access_token = url.substring(startIndex + 13, finishIndex);
+      console.log(urls);
+      const startTokenIndex = url.indexOf('access_token');
+      const finishTokenIndex = url.indexOf('&', startTokenIndex);
+      const startUidIndex = url.indexOf('user_id');
+      const finishUidIndex = url.indexOf('&', startUidIndex);
+      const access_token = url.substring(startTokenIndex + 13, finishTokenIndex);
+      const uid = url.substring(startUidIndex + 8, finishUidIndex);
 
       mainWindow.loadURL(`file://${__dirname}/app.html`);
       mainWindow.webContents.on('did-finish-load', () => {
-        mainWindow.webContents.send('get_access_token', {access_token: access_token});
+        mainWindow.webContents.send('get_access_token', {access_token, uid});
       });
     }
   });
