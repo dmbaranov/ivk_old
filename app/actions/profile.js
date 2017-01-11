@@ -5,6 +5,8 @@ function saveProfileData(data) {
   /**
    * @param data - profile data
    * @return object for the reducer
+   *
+   * Puts user information into store.
    */
   return {
     type: con.SAVE_PROFILE_DATA,

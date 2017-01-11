@@ -1,5 +1,19 @@
+import {push} from 'react-router-redux';
+
 import * as con from 'app/constants/dialogs';
 import API from 'app/utils/API';
+
+export function redirectTo(location) {
+  /**
+   * @param location - url, where to redirect
+   * @return dispatch - function for the reducer
+   *
+   * Simply redirects user.
+   */
+  return dispatch => {
+    dispatch(push(location));
+  }
+}
 
 function saveDialogsList(dialogs, users) {
   /**
@@ -11,7 +25,7 @@ function saveDialogsList(dialogs, users) {
    */
   return {
     type: con.SAVE_DIALOGS_LIST,
-    payload: {dialogs, users}
+    payload: { dialogs, users }
   };
 }
 
@@ -44,17 +58,17 @@ async function getUsers(access_token, dialogs) {
    * and creates an object where
    * every key is a user id and every value is an information about user.
    * So we can easily get data about user while creating dialogs.
+   *
    */
-  const resultUsers = {}, usersBuffer = [];
+  const resultUsers = {},
+        usersBuffer = [], // contains info about single users
+        chatsBuffer = [], // contains chat's ids
+        chatUsers   = []; // contains info about chat users
 
   Promise.all(dialogs.map(async item => {
     if (item.chat_id) {
       // If this is a chat
-      const dialogUsers = await API.getDialogUsers(API.GET_REQUEST, access_token, item.chat_id, 'photo_50');
-
-      dialogUsers[0].map(user => {
-        resultUsers[user.uid] = user;
-      });
+      chatsBuffer.push(item.chat_id);
     }
     else {
       // If this is a dialog with a single person
@@ -63,9 +77,19 @@ async function getUsers(access_token, dialogs) {
   }));
 
   // Because stupid API of vk.com doesn't return info about last user, we have to add last user one more time lol
-  usersBuffer.push(usersBuffer[length - 1]);
+  // usersBuffer.push(usersBuffer[length - 1]);
 
   const singleUsers = await API.getUserInfo(API.GET_REQUEST, access_token, usersBuffer.join(','), 'photo_50');
+  const rawChatsUsers = await API.getDialogUsers(API.GET_REQUEST, access_token, chatsBuffer.join(','), 'photo_50');
+
+  for (const key in rawChatsUsers) {
+    chatUsers.push(...rawChatsUsers[key]);
+  }
+
+  chatUsers.map(user => {
+    resultUsers[user.id] = user;
+  });
+
   singleUsers.map(user => {
     resultUsers[user.uid] = user;
   });
@@ -94,6 +118,7 @@ function constructDialogs(dialogs, users) {
         type: 'chat',
         title: item.title,
         body: item.body,
+        id: item.chat_id
       });
     }
     else {
@@ -103,6 +128,7 @@ function constructDialogs(dialogs, users) {
         type: 'single',
         title: title,
         body: item.body,
+        id: item.uid,
         avatar: user.photo_50
       });
     }

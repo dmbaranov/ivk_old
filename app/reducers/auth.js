@@ -12,7 +12,7 @@ export default function auth(state=initialState, action) {
       return {
         ...state,
         access_token: action.payload.access_token,
-        uid: action.payload.uid,
+        uid: action.payload.uid.toString(),
         isLoggedIn: true
       };
 
