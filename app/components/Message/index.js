@@ -8,7 +8,7 @@ export class MessageComponent extends Component {
       <div className={styles.message}>
         <div>{this.props.title}</div>
         <div>{this.props.body}</div>
-        <img src={this.props.avatar}/>
+        <img className={styles.avatar} src={this.props.avatar}/>
       </div>
     );
   }

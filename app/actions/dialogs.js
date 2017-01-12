@@ -38,7 +38,7 @@ function saveDialogsList(dialogs, users) {
  * @param   {string}    access_token  - token for the vk.com API
  * @return  {Function}  dispatch      - function for the reducer
  */
-export function getDialogsList(access_token) {
+export function initDialogsList(access_token) {
   return async dispatch => {
     const rawDialogs = await API.getDialogsList(API.GET_REQUEST, access_token);
     rawDialogs.splice(0, 1); // because the first element is a length of response
