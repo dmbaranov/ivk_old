@@ -1,29 +1,51 @@
-.container {
-  display: grid;
-  height: 100vh;
-  grid-template-columns: 5% 1fr 1fr 1fr 5%;
-  grid-template-rows: 1fr 10px 1fr;
+//.container {
+//  position: relative;
+//
+//  display: grid;
+//  height: auto;
+//  grid-template-columns: 5% 1fr 1fr 1fr 5%;
+//  grid-template-rows: 1fr 10px 1fr;
+//
+//  //overflow: scroll;
+//}
+//
+//.messagesContainer {
+//  grid-column: 2 / span 3;
+//  grid-row: 1;
+//
+//  overflow: hidden;
+//}
+//
+//.inputContainer {
+//  grid-column: 3;
+//  grid-row: 3;
+//  bottom: 0;
+//
+//  display: grid;
+//  grid-template-columns: 1fr 80px;
+//  grid-template-rows: 1fr;
+//}
+//
+//.indicator {
+//  grid-column: 3;
+//  grid-row: 2;
+//  justify-self: center;
+//}
+//
+//.bottom {
+//  position: absolute;
+//  bottom: -10px;
+//
+//  height: 1px;
+//  width: 100px;
+//
+//  background: red;
+//}
 
-  overflow: scroll;
+.container {
+  background: red;
 }
 
 .messagesContainer {
-  grid-column: 2 / span 3;
-  grid-row: 1;
-}
-
-.inputContainer {
-  grid-column: 3;
-  grid-row: 3;
-  bottom: 0;
-
-  display: grid;
-  grid-template-columns: 1fr 80px;
-  grid-template-rows: 1fr;
-}
-
-.indicator {
-  grid-column: 3;
-  grid-row: 2;
-  justify-self: center;
+  background: blue;
 }

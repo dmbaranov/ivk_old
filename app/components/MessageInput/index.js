@@ -32,6 +32,7 @@ export class MessagesInput extends Component {
     return (
       <form className={styles.inputContainer} onSubmit={this.handleSubmit}>
         <TextField
+          className="lol"
           value={this.state.message}
           onChange={this.handleMessageInput}
           floatingLabelText="Введите сообщение"

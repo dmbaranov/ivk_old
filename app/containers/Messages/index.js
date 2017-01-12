@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
+import ReactDOM from 'react-dom';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import $ from 'jquery';
 
 import Message from 'app/components/Message';
 import MessageInput from 'app/components/MessageInput';
@@ -9,6 +11,34 @@ import * as actions from 'app/actions/messages';
 import styles from './style.scss';
 
 class MessagesContainer extends Component {
+
+
+  // constructor(props,context){
+  //   super(props,context);
+  //   this.isAlreadyLoaded =  false;
+  // }
+  //
+  // componentWillReceiveProps(nextProps) {
+  //   let scrollToElement = document.getElementById("scroll-element");
+  //   if (scrollToElement && !isAlreadyLoaded){
+  //     this.isAlreadyLoaded = true;
+  //     scrollToElement.scrollIntoView(true);
+  //   }
+  // }
+
+  componentDidUpdate() {
+    // this.refs.bottom.scrollIntoView();
+    // const elem = ReactDOM.findDOMNode(this.refs.bottom);
+    // elem.scrollIntoView(false);
+    // document.querySelector('.lol input').scrollIntoView();
+
+    // ReactDOM.findDOMNode(this.refs.bottom).scrollIntoView(false);
+
+    // ReactDOM.findDOMNode(this.refs.messagesContainer).scrollIntoView(false);
+
+    ReactDOM.findDOMNode(this.refs.container).scrollTo(0, 1000);
+  }
+
   componentDidMount() {
     const {initMessages, saveDialogId, redirectTo} = this.props.actions;
     const {access_token} = this.props.auth;
@@ -48,10 +78,10 @@ class MessagesContainer extends Component {
     });
 
     return (
-      <div className={styles.container}>
-        <div className={styles.messagesContainer}>
+      <div className={styles.container} id="lol" ref="container">
+        <div className={styles.messagesContainer} ref="messagesContainer">
           {messagesList}
-          <MessageInput onSubmit={this.handleSubmit}/>
+          {/*<MessageInput onSubmit={this.handleSubmit} ref="input"/>*/}
         </div>
       </div>
     );

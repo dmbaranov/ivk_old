@@ -3,65 +3,60 @@ import {push} from 'react-router-redux';
 import API from 'app/utils/API';
 import * as con from 'app/constants/messages';
 
+/**
+ * Simply redirects user.
+ * @param   {string}    location - url, where to redirect
+ * @return  {Function}  dispatch - function for the reducer
+ */
 export function redirectTo(location) {
-  /**
-   * @param location - url, where to redirect
-   * @return dispatch - function for the reducer
-   *
-   * Simply redirects user.
-   */
   return dispatch => {
     dispatch(push(location));
   }
 }
 
+/**
+ * Adds list of messages (when page was loaded) into store
+ * @param   {Array}   messages - list of messages
+ * @return  {object}  object for the reducer
+ */
 function saveInitialMessages(messages) {
-  /**
-   * @param messages - list of messages
-   * @return object for the reducer
-   *
-   * Adds list of messages (when page was loaded) into store
-   */
   return {
     type: con.SAVE_INITIAL_MESSAGES,
     payload: { messages }
   };
 }
 
+/**
+ * Adds list of messages (usually one message that was sent) into store
+ * @param   {Array}   messages - list of messages
+ * @return  {object}  object for the reducer
+ */
 function saveMessages(messages) {
-  /**
-   * @param messages - list of messages
-   * @return object for the reducer
-   *
-   * Adds list of messages (usually one message that was sent) into store
-   */
   return {
     type: con.SAVE_MESSAGES,
     payload: { messages }
   }
 }
 
+/**
+ * Puts id of the current dialog into store
+ * @param   {number}  dialogID - id of the current dialog
+ * @return  {object}  object for the reducer
+ */
 function putDialogId(dialogID) {
-  /**
-   * @param dialogID - id of the current dialog
-   * @return object for the reducer
-   *
-   * Puts id of the current dialog into store
-   */
   return {
     type: con.SAVE_DIALOG_ID,
     payload: { dialogID }
   }
 }
 
+/**
+ * Receive list of messages for the required dialog
+ * @param   {string}  access_token - token for the vk.com API
+ * @param   {number}  dialogID - id of the dialog for which we need to get messages
+ * @return  {Array}   dispatch - function for the reducer
+ */
 export function initMessages(access_token, dialogID, users) {
-  /**
-   * @param access_token - token for the vk.com API
-   * @param dialogID - id of the dialog for which we need to get messages
-   * @return dispatch - function for the reducer
-   *
-   * Receive list of messages for the required dialog
-   */
   return async dispatch => {
     const rawMessages = await API.getDialogHistory(API.GET_REQUEST, access_token, dialogID);
     rawMessages.splice(0, 1); // because first element is a length of the array
@@ -72,17 +67,16 @@ export function initMessages(access_token, dialogID, users) {
   }
 }
 
+/**
+ * First we receive message id,
+ * after that we receive info about this message (id, body, etc...),
+ * construct this message and save into store.
+ * @param {string}  access_token  - token for the vk.com API
+ * @param {string}  message       - message text
+ * @param {number}  dialogID      - id of the active dialog
+ * @param {Array}   users         - list of users to construct message
+ */
 export function addMessage(access_token, message, dialogID, users) {
-  /**
-   * @param access_token - token for the vk.com API
-   * @param message - message text
-   * @param dialogID - id of the active dialog
-   * @param users - list of users to construct message
-   *
-   * First we receive message id,
-   * after that we receive info about this message (id, body, etc...),
-   * construct this message and save into store.
-   */
   return async dispatch => {
     const randomNumber = Math.floor(Math.random() * 100000 + 1);
     const messageID = await API.sendMessage(API.GET_REQUEST, access_token, message, dialogID, randomNumber);
@@ -94,20 +88,24 @@ export function addMessage(access_token, message, dialogID, users) {
   }
 }
 
+/**
+ *
+ * @param {number} id     - id of the activeDialog
+ // * @return {function(*)}  - function for the reducer
+ */
 export function saveDialogId(id) {
   return dispatch => {
     dispatch(putDialogId(id));
   }
 }
 
+/**
+ * Creates list of messages for rendering in component
+ * @param   {Array} rawMessages - list of raw messages
+ * @param   {Array} users       - list of users (names, avatars, etc...)
+ * @return  {Array} list of constructed messages
+ */
 function constructMessages(rawMessages, users) {
-  /**
-   * @param messages - list of raw messages
-   * @param users - list of users (names, avatars, etc...)
-   * @return list of constructed messages
-   *
-   * Creates list of messages for rendering in component
-   */
   return rawMessages.map(item => {
     const user = users[item.uid];
 

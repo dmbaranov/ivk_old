@@ -1,0 +1,9 @@
+.inputContainer {
+  grid-column: 3;
+  grid-row: 3;
+  bottom: 0;
+
+  display: grid;
+  grid-template-columns: 1fr 80px;
+  grid-template-rows: 1fr;
+}

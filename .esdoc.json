@@ -1,0 +1,9 @@
+{
+  "source": "./app/",
+  "destination": "./doc",
+  "experimentalProposal": {
+    "classProperties": true,
+    "objectRestSpread": true
+  },
+  "excludes": ["/*bundle.js*/"]
+}

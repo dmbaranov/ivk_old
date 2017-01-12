@@ -20,7 +20,7 @@ export default validate(merge(baseConfig, {
   ],
 
   output: {
-    path: path.join(__dirname, 'app/dist'),
+    path: path.join(__dirname, './dist'),
     publicPath: '../dist/'
   },
 

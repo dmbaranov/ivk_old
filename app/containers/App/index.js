@@ -12,6 +12,11 @@ import * as actions from 'app/actions/auth';
 import styles from './style.scss';
 
 export class App extends Component {
+  /**
+   * propTypes
+   * @property {object} auth Data for the authenticated user
+   // * @type {{auth: __React.Requireable<any>, actions: __React.Validator<any>}}
+   */
   static propTypes = {
     auth: PropTypes.shape({
       isLoggedIn: PropTypes.bool.isRequired,

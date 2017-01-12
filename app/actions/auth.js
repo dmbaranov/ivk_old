@@ -1,15 +1,22 @@
 import * as con from 'app/constants/auth';
 import API from 'app/utils/API';
 
+/**
+ * @typedef   {Object}  authUserPayload
+ * @property  {String}  access_token    - Token for the vk.com API
+ * @property  {Number}  uid             - ID of the current user (who is logged in)
+ */
+
+/**
+ * We save token to the localStorage, so user shouldn't login again next time.
+ * After that we save token to the store
+ * @param     {String}          access_token    - Token for the vk.com API
+ * @param     {Number}          uid             - ID of the current user (who is logged in)
+ * @return    {Object}          reducerObject   - Object for the reducer
+ * @property  {String}          type            - Action type
+ * @property  {authUserPayload} payload         - Payload
+ */
 export function authUser(access_token, uid) {
-  /**
-   * @param access_token - token for the vk.com API
-   * @param uid - id of the current user (who is logged in)
-   * @return object for the reducer
-   *
-   * We save token to the localStorage, so user shouldn't login again next time.
-   * After that we save token to the store
-   */
   window.localStorage.setItem('access_token', access_token);
 
   return {
@@ -18,14 +25,14 @@ export function authUser(access_token, uid) {
   };
 }
 
+/**
+ * If we have a token in localStorage,
+ * then we can authenticate user with this token.
+ * Otherwise user will have to login.
+ *
+ * @return {Function} - Function for the reducer
+ */
 export function initAuth() {
-  /**
-   * @return dispatch - function for the reducer
-   *
-   * If we have a token in localStorage,
-   * then we can authenticate user with this token.
-   * Otherwise user will have to login.
-   */
   const access_token = window.localStorage.getItem('access_token');
 
   return async dispatch => {
