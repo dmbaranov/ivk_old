@@ -8,22 +8,19 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import MenuContainer from 'app/containers/Menu';
 import LoginContainer from 'app/containers/Login';
 
-import * as actions from 'app/actions/auth';
+import * as authActions from 'app/actions/auth';
+import * as commonActions from 'app/actions/common';
 import styles from './style.scss';
 
 export class App extends Component {
-  /**
-   * propTypes
-   * @property {object} auth Data for the authenticated user
-   // * @type {{auth: __React.Requireable<any>, actions: __React.Validator<any>}}
-   */
   static propTypes = {
     auth: PropTypes.shape({
       isLoggedIn: PropTypes.bool.isRequired,
       access_token: PropTypes.string.isRequired,
       uid: PropTypes.string.isRequired
     }),
-    actions: PropTypes.object.isRequired
+    authActions: PropTypes.object.isRequired,
+    commonActions: PropTypes.object.isRequired
   };
 
   constructor() {
@@ -31,10 +28,81 @@ export class App extends Component {
 
     // For the material-ui
     injectTapEventPlugin();
+    this.state = {
+      lpStarted: false
+    };
   }
 
+  componentWillReceiveProps(nextProps) {
+    const {access_token} = nextProps.auth;
+    const {lpServer, lpKey, lpTs} = nextProps.common;
+    const {initCommon, sendLongPollRequest} = this.props.commonActions;
+    const {lpStarted} = this.state;
+
+    if (!lpStarted && access_token !== '') {
+      initCommon(access_token);
+
+      this.setState({
+        lpStarted: !lpStarted
+      });
+    }
+
+    if (this.props.common.isFetching === false && lpTs !== '') {
+      sendLongPollRequest(lpServer, lpKey, lpTs);
+    }
+    // if (this.props.common.lpTs !== lpTs) {
+    //   sendLongPollRequest(lpServer, lpKey, lpTs);
+    // }
+
+    // if (this.state.lpTs === '' || this.state.lpTs !== this.props.common.lpTs) {
+    //   sendLongPollRequest(lpServer, lpKey, lpTs);
+    //
+    //   this.setState({
+    //     lpTs: this.props.common.lpTs
+    //   });
+    // }
+  }
+
+  // componentWillReceiveProps(nextProps) {
+  //   const {access_token} = nextProps.auth;
+  //   const {initCommon, sendLongPollRequest} = this.props.commonActions;
+  //   const {lpKey, lpServer, lpTs} = this.props.common;
+  //   let {times} = this.state;
+  //
+  //   if (nextProps.common.lpTs !== this.state.lpTs && this.state.started === true) {
+  //     this.setState({
+  //       lpTs: nextProps.common.lpTs
+  //     });
+  //   }
+  //
+  //
+  //   if (access_token.length > 0 && lpKey.length === 0 && lpServer.length === 0 && lpTs.length === 0) {
+  //     initCommon(access_token);
+  //   }
+  //
+  //   if (this.state.lpTs === '' && lpTs !== '' && this.state.started === false) {
+  //     sendLongPollRequest(lpServer, lpKey, lpTs);
+  //     this.setState({
+  //       started: !this.state.started
+  //     });
+  //   }
+  //
+  //   if (this.state.times < 10) {
+  //     console.log('Redux:', lpTs);
+  //     console.log('State:', this.state.lpTs);
+  //     if (lpKey.length > 0 && lpServer.length > 0 && lpTs.length > 0 && lpTs !== this.state.lpTs) {
+  //       console.log('request');
+  //       // sendLongPollRequest(lpServer, lpKey, lpTs);
+  //       times++;
+  //
+  //       this.setState({lpTs, times});
+  //     }
+  //   }
+  // }
+
   componentDidMount() {
-    const {initAuth, authUser} = this.props.actions;
+    const {initAuth, authUser} = this.props.authActions;
+
     ipcRenderer.on('get_access_token', (event, data) => {
       // This is message for the Electron main process
       authUser(data.access_token, data.uid);
@@ -78,13 +146,15 @@ export class App extends Component {
 
 function mapStateToProps(state) {
   return {
-    auth: state.auth
+    auth: state.auth,
+    common: state.common
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(actions, dispatch)
+    authActions: bindActionCreators(authActions, dispatch),
+    commonActions: bindActionCreators(commonActions, dispatch)
   };
 }
 

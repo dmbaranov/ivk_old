@@ -6,12 +6,14 @@ import auth from './auth';
 import profile from './profile';
 import dialogs from './dialogs';
 import messages from './messages';
+import common from './common';
 
 const appReducer = combineReducers({
   auth,
   profile,
   dialogs,
   messages,
+  common,
   routing
 });
 

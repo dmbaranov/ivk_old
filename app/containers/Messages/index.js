@@ -38,18 +38,22 @@ class MessagesContainer extends Component {
   }
 
   handleSubmit = message => {
-    const {access_token} = this.props.auth;
+    const {access_token, uid} = this.props.auth;
     const {addMessage} = this.props.actions;
     const {dialogID} = this.props.messages;
     const {users} = this.props.dialogs;
 
-    addMessage(access_token, message, dialogID, users);
+    addMessage(access_token, message, dialogID, users[uid]);
   };
 
   render() {
     const {messages} = this.props.messages;
     const messagesList = messages.map(item => {
-      return <Message key={item.id} title={item.title} body={item.body} avatar={item.avatar}/>
+      return <Message key={item.id}
+                      title={item.title}
+                      body={item.body}
+                      avatar={item.avatar}
+                      readState={item.readState}/>
     });
 
     return (

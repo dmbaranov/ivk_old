@@ -18,7 +18,6 @@ import API from 'app/utils/API';
  */
 export function authUser(access_token, uid) {
   window.localStorage.setItem('access_token', access_token);
-
   return {
     type: con.AUTH_USER,
     payload: { access_token, uid }

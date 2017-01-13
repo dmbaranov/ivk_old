@@ -76,14 +76,14 @@ export function initMessages(access_token, dialogID, users) {
  * @param {number}  dialogID      - id of the active dialog
  * @param {Array}   users         - list of users to construct message
  */
-export function addMessage(access_token, message, dialogID, users) {
+export function addMessage(access_token, message, dialogID, user) {
   return async dispatch => {
     const randomNumber = Math.floor(Math.random() * 100000 + 1);
     const messageID = await API.sendMessage(API.GET_REQUEST, access_token, message, dialogID, randomNumber);
     const rawMessage = await API.getMessageInfo(API.GET_REQUEST, access_token, messageID);
     rawMessage.splice(0, 1);
 
-    const resultMessage = constructMessages(rawMessage, users);
+    const resultMessage = constructMessages(rawMessage, [user]);
     dispatch(saveMessages(resultMessage));
   }
 }
@@ -107,13 +107,15 @@ export function saveDialogId(id) {
  */
 function constructMessages(rawMessages, users) {
   return rawMessages.map(item => {
+    console.log(item);
     const user = users[item.uid];
 
     return {
       id: item.mid,
       title: user.first_name + ' ' + user.last_name,
       body: item.body,
-      avatar: user.photo_50
+      avatar: user.photo_50,
+      readState: item.read_state
     };
   });
 }

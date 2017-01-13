@@ -1,29 +1,55 @@
-export const GET_REQUEST = {
-  method: 'GET',
-  headers: {
-    'Content-Type': 'application/json;charset=utf-8'
-  }
-};
-
-export const POST_REQUEST = {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json;charset=utf-8'
-  }
-};
+import axios from 'axios';
+// export const GET_REQUEST = {
+//   method: 'GET',
+//   headers: {
+//     'Content-Type': 'application/json;charset=utf-8'
+//   }
+// };
+//
+// export const POST_REQUEST = {
+//   method: 'POST',
+//   headers: {
+//     'Content-Type': 'application/json;charset=utf-8'
+//   }
+// };
 
 function request(url, params, resolve, reject) {
-  fetch(url, params)
-    .then(response => response.json())
-    .then(data => resolve(data.response))
+  axios.get(url)
+    .then(response => resolve(response.data.response))
     .catch(error => {
       console.log('Error has occured while processing a request!');
       console.log(error);
       reject(error);
     });
+  // fetch(url, params)
+  //   .then(response => response.json())
+  //   .then(data => resolve(data.response))
+  //   .catch(error => {
+  //     console.log('Error has occured while processing a request!');
+  //     console.log(error);
+  //     reject(error);
+  //   });
 }
 
 export default {
+  getLongPollServer(params, access_token) {
+    return new Promise((resolve, reject) => {
+      request(`https://api.vk.com/method/messages.getLongPollServer?access_token=${access_token}`, params, resolve, reject);
+    });
+  },
+
+  getLongPollHistory(params, server, key, ts) {
+    return new Promise((resolve, reject) => {
+      // request(`https://${server}?act=a_check&key=${key}&ts=${ts}&wait=5&mode=2&version=1`, params, resolve, reject);
+      axios(`https://${server}?act=a_check&key=${key}&ts=${ts}&wait=25&mode=2&version=1`)
+        .then(response => resolve(response))
+        .catch(error => {
+          console.log('Error has occured while processing a request!');
+          console.log(error);
+        })
+    });
+  },
+
   getProfileData(params, access_token) {
     return new Promise((resolve, reject) => {
       request(`https://api.vk.com/method/account.getProfileInfo?access_token=${access_token}`, params, resolve, reject);
