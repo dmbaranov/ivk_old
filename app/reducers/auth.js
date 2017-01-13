@@ -19,6 +19,9 @@ export default function common(state=initialState, action) {
     case con.LOGOUT_USER:
       return initialState;
 
+    case 'DETELE_LATER':
+      console.log('here');
+      return state;
     default:
       return state;
   }

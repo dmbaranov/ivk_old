@@ -8,16 +8,17 @@ function saveLongPollServer(lpData) {
       lpKey: lpData.key,
       lpServer: lpData.server,
       lpTs: lpData.ts,
-      isFetching: true
+      isFetching: true,
     }
   };
 }
 
-function updateLpTs(lpTs) {
+function updateLpTs(data) {
   return {
     type: con.UPDATE_LP_TS,
     payload: {
-      lpTs: lpTs,
+      lpTs: data.ts,
+      updates: data.updates,
       isFetching: true
     }
   }
@@ -35,8 +36,6 @@ export function sendLongPollRequest(server, key, ts) {
   return async dispatch => {
     const response = await API.getLongPollHistory(API.GET_REQUEST, server, key, ts);
 
-    console.log(response.data);
-
-    dispatch(updateLpTs(response.data.ts));
+    dispatch(updateLpTs(response.data));
   }
 }

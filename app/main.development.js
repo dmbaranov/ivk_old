@@ -57,7 +57,6 @@ app.on('ready', async () => {
     const urls = params.sender.history;
     if (urls[urls.length - 1].indexOf('https://oauth.vk.com/blank.html') >= 0) {
       const url = urls[urls.length - 1];
-      console.log(urls);
       const startTokenIndex = url.indexOf('access_token');
       const finishTokenIndex = url.indexOf('&', startTokenIndex);
       const startUidIndex = url.indexOf('user_id');

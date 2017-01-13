@@ -3,8 +3,8 @@ import thunk from 'redux-thunk';
 import { hashHistory } from 'react-router';
 import { routerMiddleware, push } from 'react-router-redux';
 import createLogger from 'redux-logger';
+import { longPollMiddleware } from 'app/utils/longPollMiddleware';
 import rootReducer from '../reducers';
-
 
 const actionCreators = {
   push,
@@ -27,7 +27,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
   compose;
 /* eslint-enable no-underscore-dangle */
 const enhancer = composeEnhancers(
-  applyMiddleware(thunk, router, logger)
+  applyMiddleware(thunk, router, logger, longPollMiddleware)
 );
 
 export default function configureStore(initialState) {
