@@ -52,6 +52,7 @@ app.on('ready', async () => {
   });
 
   mainWindow.loadURL(`file://${__dirname}/app.html`);
+  mainWindow.openDevTools();
 
   mainWindow.on('page-title-updated', params => {
     const urls = params.sender.history;

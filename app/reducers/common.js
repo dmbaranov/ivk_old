@@ -5,6 +5,7 @@ const initialState = {
   lpServer: '',
   lpTs: '',
   updates: [],
+  requestNumber: '',
   isFetching: false
 };
 
@@ -24,6 +25,7 @@ export default function auth(state=initialState, action) {
         ...state,
         lpTs: action.payload.lpTs,
         updates: action.payload.updates,
+        requestNumber: action.payload.requestNumber,
         isFetching: false
       };
 

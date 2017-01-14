@@ -22,6 +22,7 @@ export class DialogsContainer extends Component {
   };
 
   render() {
+    console.log('here');
     const {dialogs} = this.props.dialogs;
     const dialogsList = dialogs.map((item, index) => {
       return <ListItem key={index}

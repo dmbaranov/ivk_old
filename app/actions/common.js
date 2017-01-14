@@ -13,12 +13,13 @@ function saveLongPollServer(lpData) {
   };
 }
 
-function updateLpTs(data) {
+function updateLpTs(data, requestNumber) {
   return {
     type: con.UPDATE_LP_TS,
     payload: {
       lpTs: data.ts,
       updates: data.updates,
+      requestNumber: requestNumber,
       isFetching: true
     }
   }
@@ -34,8 +35,9 @@ export function initCommon(access_token) {
 
 export function sendLongPollRequest(server, key, ts) {
   return async dispatch => {
+    const random = Math.floor(Math.random() * 100000000 + 1);
     const response = await API.getLongPollHistory(API.GET_REQUEST, server, key, ts);
 
-    dispatch(updateLpTs(response.data));
+    dispatch(updateLpTs(response.data, random));
   }
 }

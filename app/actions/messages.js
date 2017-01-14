@@ -95,7 +95,7 @@ export function addMessage(access_token, message, dialogID, user) {
     };
 
     const resultMessage = constructMessages([fixedMessage], fixedUser);
-    dispatch(saveMessages(resultMessage));
+    // dispatch(saveMessages(resultMessage));
   }
 }
 
@@ -103,15 +103,17 @@ export function getMessage(access_token, messageID, authorID, activeDialogID) {
   return async dispatch => {
 
     // Won't work for chats
-    if (authorID === parseInt(activeDialogID)) {
+    // if (authorID === parseInt(activeDialogID)) {
       const rawMessage = await API.getMessageInfo(null, access_token, messageID);
       const rawAuthor = await API.getUserInfo(null, access_token, authorID, 'photo_50');
       const author = {
         [authorID]: rawAuthor[0]
       };
       rawMessage.splice(0, 1);
+      rawMessage[0].sender = authorID;
 
       const message = constructMessages(rawMessage, author);
+      console.log('Inside getMessage');
 
       dispatch(saveMessages(message));
       // const rawAuthor = await API.getUserInfo(null, access_token, authorID, 'photo_50');
@@ -121,8 +123,8 @@ export function getMessage(access_token, messageID, authorID, activeDialogID) {
       //
       // const message = constructMessages([rawMessage], author);
       // console.log(message);
-    }
-  }
+    };
+  // }
 }
 
 /**
@@ -144,7 +146,7 @@ export function saveDialogId(id) {
  */
 function constructMessages(rawMessages, users) {
   return rawMessages.map(item => {
-    const user = users[item.uid];
+    const user = users[item.sender] || users[item.uid];
 
     return {
       id: item.mid,

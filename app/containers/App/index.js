@@ -41,15 +41,22 @@ export class App extends Component {
 
     if (!lpStarted && access_token !== '') {
       initCommon(access_token);
+    }
+
+    if (!lpStarted && lpServer !== '') {
+      sendLongPollRequest(lpServer, lpKey, lpTs);
 
       this.setState({
         lpStarted: !lpStarted
       });
     }
 
-    if (this.props.common.isFetching === false && lpTs !== '') {
-      sendLongPollRequest(lpServer, lpKey, lpTs);
-    }
+    // if (this.props.common.isFetching === false && lpTs !== '') {
+    //   sendLongPollRequest(lpServer, lpKey, lpTs);
+    // }
+
+
+
     // if (this.props.common.lpTs !== lpTs) {
     //   sendLongPollRequest(lpServer, lpKey, lpTs);
     // }
