@@ -18,14 +18,14 @@ class MessagesContainer extends Component {
     const {initMessages, saveDialogId, redirectTo} = this.props.actions;
     const {access_token} = this.props.auth;
     const {users} = this.props.dialogs;
-    let dialogID = '';
+    const dialogID = this.props.params.id;
 
-    if (this.props.params.type === 'chat') {
-      dialogID = +2000000000 + +this.props.params.id;
-    }
-    else {
-      dialogID = this.props.params.id;
-    }
+    // if (this.props.params.type === 'chat') {
+    //   dialogID = +2000000000 + +this.props.params.id;
+    // }
+    // else {
+    //   dialogID = this.props.params.id;
+    // }
 
     saveDialogId(dialogID);
 

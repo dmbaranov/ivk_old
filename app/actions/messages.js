@@ -113,7 +113,6 @@ export function getMessage(access_token, messageID, authorID, activeDialogID) {
       rawMessage[0].sender = authorID;
 
       const message = constructMessages(rawMessage, author);
-      console.log('Inside getMessage');
 
       dispatch(saveMessages(message));
       // const rawAuthor = await API.getUserInfo(null, access_token, authorID, 'photo_50');

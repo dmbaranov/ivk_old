@@ -22,15 +22,31 @@ export class DialogsContainer extends Component {
   };
 
   render() {
-    console.log('here');
     const {dialogs} = this.props.dialogs;
-    const dialogsList = dialogs.map((item, index) => {
-      return <ListItem key={index}
-                       primaryText={item.title}
-                       secondaryText={item.body}
-                       leftAvatar={<Avatar src={item.avatar}/>}
-                       onTouchTap={this.redirect.bind(this, `/dialog/${item.type}/${item.id}`)}/>
+    const dialogsList = [];
+    dialogs.forEach(item => {
+      dialogsList.push(
+        <ListItem key={item.id}
+                  primaryText={item.title}
+                  secondaryText={item.body}
+                  leftAvatar={<Avatar src={item.avatar}/>}
+                  onTouchTap={this.redirect.bind(this, `/dialog/${item.type}/${item.id}`)}/>
+      );
     });
+    // const dialogsList = Object.keys(dialogs).map(key => {
+    //   return <ListItem key={dialogs[key].id}
+    //                    primaryText={dialogs[key].title}
+    //                    secondaryText={dialogs[key].body}
+    //                    leftAvatar={<Avatar src={dialogs[key].avatar}/>}
+    //                    onTouchTap={this.redirect.bind(this, `/dialog/${dialogs[key].type}/${dialogs[key].id}`)}/>
+    // });
+    // const dialogsList = dialogs.map((item, index) => {
+    //   return <ListItem key={index}
+    //                    primaryText={item.title}
+    //                    secondaryText={item.body}
+    //                    leftAvatar={<Avatar src={item.avatar}/>}
+    //                    onTouchTap={this.redirect.bind(this, `/dialog/${item.type}/${item.id}`)}/>
+    // });
 
     return (
       <div ref="container">

@@ -33,6 +33,13 @@ function saveDialogsList(dialogs, users) {
   };
 }
 
+function updateDialogsList(dialogs) {
+  return {
+    type: con.UPDATE_DIALOGS_LIST,
+    payload: { dialogs }
+  }
+}
+
 /**
  * Creating list of users, list of dialogs and saves it into store.
  * @param   {string}    access_token  - token for the vk.com API
@@ -44,9 +51,33 @@ export function initDialogsList(access_token) {
     rawDialogs.splice(0, 1); // because the first element is a length of response
 
     const users = await getUsers(access_token, rawDialogs);
-    const dialogs = constructDialogs(rawDialogs, users);
+    const preDialogs = constructDialogs(rawDialogs, users);
+
+    const dialogs = new Map();
+    preDialogs.map(item => {
+      dialogs.set(item.id, item);
+    }).sort((a, b) => a[1].date - b[1].date);
+
+    // const dialogs = new Map([...oldDialogs].sort((a, b) => b[1].date - a[1].date));
 
     dispatch(saveDialogsList(dialogs, users));
+  }
+}
+
+
+export function updateDialogBody(dialogID, messageBody, dialogsList, date) {
+  return dispatch => {
+    const newDialog = {
+      ...dialogsList.get(dialogID),
+      body: messageBody,
+      date: date
+    };
+
+    const newDialogsList = dialogsList.set(dialogID, newDialog);
+
+    const sortedDialogsList = new Map([...newDialogsList].sort((a, b) => b[1].date - a[1].date));
+
+    dispatch(updateDialogsList(sortedDialogsList));
   }
 }
 
@@ -117,7 +148,8 @@ function constructDialogs(dialogs, users) {
         type: 'chat',
         title: item.title,
         body: item.body,
-        id: item.chat_id
+        date: item.date,
+        id: +2000000000 + +item.chat_id
       });
     }
     else {
@@ -127,6 +159,7 @@ function constructDialogs(dialogs, users) {
         type: 'single',
         title: title,
         body: item.body,
+        date: item.date,
         id: item.uid,
         avatar: user.photo_50
       });
